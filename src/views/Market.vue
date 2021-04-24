@@ -2,20 +2,21 @@
   <b-card v-if="$store.state.showPage" tag="article" class="mb-2 mr-3 ml-3 bg-dark" >
             <div class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:BTCTHB",
-                    "interval": "15",
-                    "timezone": "Asia/Bangkok",
-                    "theme": "dark",
-                    "style": "1",
-                    "locale": "th_TH",
-                    "hide_side_toolbar": false,
-                    "toolbar_bg": "#f1f3f6",
-                    "withdateranges": true,
-                    "allow_symbol_change": true,
-                    "show_popup_button": true,
-                    "popup_width": "1000",
-                    "popup_height": "650",
+                    "interval": $store.state.chart_config.interval,
+                    "timezone": $store.state.chart_config.timezone,
+                    "theme": $store.state.chart_config.theme,
+                    "style": $store.state.chart_config.style,
+                    "locale": $store.state.chart_config.locale,
+                    "toolbar_bg": $store.state.chart_config.toolbar_bg,
+                    "enable_publishing": $store.state.chart_config.enable_publishing,
+                    "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
+                    "withdateranges": $store.state.chart_config.withdateranges,
+                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "show_popup_button": $store.state.chart_config.show_popup_button,
+                    "popup_width": $store.state.chart_config.popup_width,
+                    "popup_height": $store.state.chart_config.popup_height,
                 }' />
             </div>
         </b-card>
@@ -67,3 +68,14 @@
     },
     }
 </script>
+<style>
+    .chart{
+        height: 500px;
+    }
+    #vue-trading-view{
+        height: 100%;
+    }
+    .card-body{
+        padding: 0px;
+    }
+</style>
