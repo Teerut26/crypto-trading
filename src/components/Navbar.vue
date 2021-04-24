@@ -28,6 +28,18 @@
                             <b-dropdown-item @click="clickPage('/market/USDT','USDT','thb_usdt')"><img
                                     src="../assets/crpyto/USDT.png" width="20" height="20"> USDT
                             </b-dropdown-item>
+                            <b-dropdown-item @click="clickPage('/market/IOST','IOST','thb_iost')"><img
+                                    src="https://www.bitkub.com/static/images/icons/IOST.png" width="20" height="20"> IOST
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="clickPage('/market/ADA','ADA','thb_ada')"><img
+                                    src="https://www.bitkub.com/static/images/icons/ADA.png" width="20" height="20"> ADA
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="clickPage('/market/SIX','SIX','thb_six')"><img
+                                    src="https://www.bitkub.com/static/images/icons/SIX.png" width="20" height="20"> SIX
+                            </b-dropdown-item>
+                            <b-dropdown-item @click="clickPage('/market/MANA','MANA','thb_mana')"><img
+                                    src="https://www.bitkub.com/static/images/icons/MANA.png" width="20" height="20"> MANA
+                            </b-dropdown-item>
                         </b-nav-item-dropdown>
                     </b-navbar-nav>
 
@@ -95,13 +107,13 @@
             console.log("Starting connection to WebSocket Server")
 
             this.connection = new WebSocket(
-                "wss://api.bitkub.com/websocket-api/market.ticker.thb_btc,market.ticker.thb_eth,market.ticker.thb_xrp,market.ticker.thb_bnb,market.ticker.thb_doge,market.ticker.thb_usdt"
+                "wss://www.bitkub.com/websocket-market-api/subscribe/ticker"
             )
 
             var self = this
 
             this.connection.onmessage = function (event) {
-                let stream_wss = JSON.parse(event.data)
+                let stream_wss = JSON.parse(event.data).data
                 // console.log(stream_wss)
                 if (stream_wss.stream == 'market.ticker.thb_btc') {
                     self.$store.state.crypto_data.BTC = stream_wss
@@ -115,6 +127,14 @@
                     self.$store.state.crypto_data.DOGE = stream_wss
                 } else if (stream_wss.stream == 'market.ticker.thb_usdt') {
                     self.$store.state.crypto_data.USDT = stream_wss
+                }else if (stream_wss.stream == 'market.ticker.thb_iost') {
+                    self.$store.state.crypto_data.IOST = stream_wss
+                }else if (stream_wss.stream == 'market.ticker.thb_ada') {
+                    self.$store.state.crypto_data.ADA = stream_wss
+                }else if (stream_wss.stream == 'market.ticker.thb_six') {
+                    self.$store.state.crypto_data.SIX = stream_wss
+                }else if (stream_wss.stream == 'market.ticker.thb_mana') {
+                    self.$store.state.crypto_data.MANA = stream_wss
                 }
             }
 

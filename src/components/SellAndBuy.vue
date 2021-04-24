@@ -65,7 +65,7 @@
                 data_crypto: {},
                 buy_value: 0,
                 sell_value: 0,
-                data_chart:{}
+                data_chart: {}
             }
         },
         components: {
@@ -92,6 +92,14 @@
                             current_price = this.$store.state.crypto_data.DOGE.last
                         } else if (this.$store.state.current_page == 'USDT') {
                             current_price = this.$store.state.crypto_data.USDT.last
+                        } else if (this.$store.state.current_page == 'IOST') {
+                            current_price = this.$store.state.crypto_data.IOST.last
+                        } else if (this.$store.state.current_page == 'ADA') {
+                            current_price = this.$store.state.crypto_data.ADA.last
+                        } else if (this.$store.state.current_page == 'SIX') {
+                            current_price = this.$store.state.crypto_data.SIX.last
+                        } else if (this.$store.state.current_page == 'MANA') {
+                            current_price = this.$store.state.crypto_data.MANA.last
                         }
 
                         firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store
@@ -158,6 +166,14 @@
                             current_price = this.$store.state.crypto_data.DOGE.last
                         } else if (this.$store.state.current_page == 'USDT') {
                             current_price = this.$store.state.crypto_data.USDT.last
+                        } else if (this.$store.state.current_page == 'IOST') {
+                            current_price = this.$store.state.crypto_data.IOST.last
+                        } else if (this.$store.state.current_page == 'ADA') {
+                            current_price = this.$store.state.crypto_data.ADA.last
+                        } else if (this.$store.state.current_page == 'SIX') {
+                            current_price = this.$store.state.crypto_data.SIX.last
+                        } else if (this.$store.state.current_page == 'MANA') {
+                            current_price = this.$store.state.crypto_data.MANA.last
                         }
 
                         firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store
@@ -219,6 +235,14 @@
                     return this.buy_value / this.$store.state.crypto_data.DOGE.last
                 } else if (this.$store.state.current_page == 'USDT') {
                     return this.buy_value / this.$store.state.crypto_data.USDT.last
+                } else if (this.$store.state.current_page == 'IOST') {
+                    return this.buy_value / this.$store.state.crypto_data.IOST.last
+                } else if (this.$store.state.current_page == 'ADA') {
+                    return this.buy_value / this.$store.state.crypto_data.ADA.last
+                } else if (this.$store.state.current_page == 'SIX') {
+                    return this.buy_value / this.$store.state.crypto_data.SIX.last
+                } else if (this.$store.state.current_page == 'MANA') {
+                    return this.buy_value / this.$store.state.crypto_data.MANA.last
                 }
             },
             check_value_sell() {
@@ -234,6 +258,14 @@
                     return this.sell_value * this.$store.state.crypto_data.DOGE.last
                 } else if (this.$store.state.current_page == 'USDT') {
                     return this.sell_value * this.$store.state.crypto_data.USDT.last
+                } else if (this.$store.state.current_page == 'IOST') {
+                    return this.sell_value * this.$store.state.crypto_data.IOST.last
+                } else if (this.$store.state.current_page == 'ADA') {
+                    return this.sell_value * this.$store.state.crypto_data.ADA.last
+                } else if (this.$store.state.current_page == 'SIX') {
+                    return this.sell_value * this.$store.state.crypto_data.SIX.last
+                } else if (this.$store.state.current_page == 'MANA') {
+                    return this.sell_value * this.$store.state.crypto_data.MANA.last
                 }
             },
             forceRerender() {
@@ -245,31 +277,53 @@
                     this.$store.state.renderComponent = true;
                 });
             },
+            // check_crypto(symbol){
+
+            // }
         },
         mounted() {
 
-            firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store.state
-                .current_page).on('value', (snapshot) => {
-                this.data_crypto = snapshot.val()
-                // console.log(snapshot.val())
-                // this.$store.state.current_asset = snapshot.val()
-                // this.data = 
-            })
+            // firebase.database().ref('users/' + localStorage.getItem("username") + '/asset').on('value', (snapshot) => {
+            //     console.log(JSON.stringify(snapshot.value()))
+            // })
 
-            firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/THB').on('value', (
-                snapshot) => {
-                this.data_thb = snapshot.val()
-                // console.log(snapshot.val())
-                // this.$store.state.current_asset = snapshot.val()
-                // this.data = 
-            })
+            const dbRef = firebase.database().ref();
+            dbRef.child("users").child(localStorage.getItem("username") + '/asset/' + this.$store.state.current_page)
+                .get().then((snapshot) => {
+                        if (!snapshot.exists()) {
+                            firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this
+                                .$store.state.current_page).set({
+                                    last_buy_price: 0,
+                                    last_buy_value: 0,
+                                    last_sell_price: 0,
+                                    last_sell_value: 0,
+                                    value: 0
+                                })
+                            }
+                        })
 
-            firebase.database().ref('chart_config/').on('value', (
-                snapshot) => {
-                    this.$store.state.chart_config = snapshot.val()
-                    this.forceRerender()
-            })
-        },
+                    firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store.state
+                        .current_page).on('value', (snapshot) => {
+                        this.data_crypto = snapshot.val()
+                        // console.log(snapshot.val())
+                        // this.$store.state.current_asset = snapshot.val()
+                        // this.data = 
+                    })
 
-    }
+                    firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/THB').on('value', (
+                        snapshot) => {
+                        this.data_thb = snapshot.val()
+                        // console.log(snapshot.val())
+                        // this.$store.state.current_asset = snapshot.val()
+                        // this.data = 
+                    })
+
+                    firebase.database().ref('chart_config/').on('value', (
+                        snapshot) => {
+                        this.$store.state.chart_config = snapshot.val()
+                        this.forceRerender()
+                    })
+                },
+
+        }
 </script>

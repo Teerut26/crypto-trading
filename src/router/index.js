@@ -59,6 +59,26 @@ const routes = [
     name: 'MarketTrad',
     component: () => import('../views/cryptoPage/MarketUSDT.vue')
   },
+  {
+    path: '/market/IOST',
+    name: 'MarketTrad',
+    component: () => import('../views/cryptoPage/MarketIOST.vue')
+  },
+  {
+    path: '/market/ADA',
+    name: 'MarketTrad',
+    component: () => import('../views/cryptoPage/MarketADA.vue')
+  },
+  {
+    path: '/market/SIX',
+    name: 'MarketTrad',
+    component: () => import('../views/cryptoPage/MarketSIX.vue')
+  },
+  {
+    path: '/market/MANA',
+    name: 'MarketTrad',
+    component: () => import('../views/cryptoPage/MarketMANA.vue')
+  },
 ]
 
 

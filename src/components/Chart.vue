@@ -45,6 +45,34 @@
                 <b-col>24 H ต่ำสุด<br><h5><b class="text-danger">{{numberWithCommas($store.state.crypto_data.USDT.low24hr)}}</b></h5></b-col>
                 <b-col>ปริมาณ 24 H ({{$store.state.current_page}})<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.USDT.baseVolume)}}</b></h5></b-col>
             </b-row>
+            <b-row v-else-if="$store.state.current_page == 'IOST'">
+                <b-col>ราคาล่าสุด (THB)<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.IOST.last)}}</b></h5></b-col>
+                <b-col>เปลี่ยน 24 H<br><h5><b :class="checkColor($store.state.crypto_data.IOST.percentChange)">{{numberPersen($store.state.crypto_data.IOST.percentChange)}}%</b></h5></b-col>
+                <b-col>24 H สูงสุด<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.IOST.high24hr)}}</b></h5></b-col>
+                <b-col>24 H ต่ำสุด<br><h5><b class="text-danger">{{numberWithCommas($store.state.crypto_data.IOST.low24hr)}}</b></h5></b-col>
+                <b-col>ปริมาณ 24 H ({{$store.state.current_page}})<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.IOST.baseVolume)}}</b></h5></b-col>
+            </b-row>
+            <b-row v-else-if="$store.state.current_page == 'ADA'">
+                <b-col>ราคาล่าสุด (THB)<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.ADA.last)}}</b></h5></b-col>
+                <b-col>เปลี่ยน 24 H<br><h5><b :class="checkColor($store.state.crypto_data.ADA.percentChange)">{{numberPersen($store.state.crypto_data.ADA.percentChange)}}%</b></h5></b-col>
+                <b-col>24 H สูงสุด<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.ADA.high24hr)}}</b></h5></b-col>
+                <b-col>24 H ต่ำสุด<br><h5><b class="text-danger">{{numberWithCommas($store.state.crypto_data.ADA.low24hr)}}</b></h5></b-col>
+                <b-col>ปริมาณ 24 H ({{$store.state.current_page}})<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.ADA.baseVolume)}}</b></h5></b-col>
+            </b-row>
+            <b-row v-else-if="$store.state.current_page == 'SIX'">
+                <b-col>ราคาล่าสุด (THB)<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.SIX.last)}}</b></h5></b-col>
+                <b-col>เปลี่ยน 24 H<br><h5><b :class="checkColor($store.state.crypto_data.SIX.percentChange)">{{numberPersen($store.state.crypto_data.SIX.percentChange)}}%</b></h5></b-col>
+                <b-col>24 H สูงสุด<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.SIX.high24hr)}}</b></h5></b-col>
+                <b-col>24 H ต่ำสุด<br><h5><b class="text-danger">{{numberWithCommas($store.state.crypto_data.SIX.low24hr)}}</b></h5></b-col>
+                <b-col>ปริมาณ 24 H ({{$store.state.current_page}})<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.SIX.baseVolume)}}</b></h5></b-col>
+            </b-row>
+            <b-row v-else-if="$store.state.current_page == 'MANA'">
+                <b-col>ราคาล่าสุด (THB)<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.MANA.last)}}</b></h5></b-col>
+                <b-col>เปลี่ยน 24 H<br><h5><b :class="checkColor($store.state.crypto_data.MANA.percentChange)">{{numberPersen($store.state.crypto_data.MANA.percentChange)}}%</b></h5></b-col>
+                <b-col>24 H สูงสุด<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.MANA.high24hr)}}</b></h5></b-col>
+                <b-col>24 H ต่ำสุด<br><h5><b class="text-danger">{{numberWithCommas($store.state.crypto_data.MANA.low24hr)}}</b></h5></b-col>
+                <b-col>ปริมาณ 24 H ({{$store.state.current_page}})<br><h5><b class="text-success">{{numberWithCommas($store.state.crypto_data.MANA.baseVolume)}}</b></h5></b-col>
+            </b-row>
             </b-card-text>
             <div v-if="$store.state.current_page == 'BTC'" class="chart">
                 <VueTradingView :options='{
@@ -145,6 +173,82 @@
                 <VueTradingView :options='{
                     "autosize": true,
                     "symbol": "BITKUB:USDTTHB",
+                    "interval": $store.state.chart_config.interval,
+                    "timezone": $store.state.chart_config.timezone,
+                    "theme": $store.state.chart_config.theme,
+                    "style": $store.state.chart_config.style,
+                    "locale": $store.state.chart_config.locale,
+                    "toolbar_bg": $store.state.chart_config.toolbar_bg,
+                    "enable_publishing": $store.state.chart_config.enable_publishing,
+                    "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
+                    "withdateranges": $store.state.chart_config.withdateranges,
+                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "show_popup_button": $store.state.chart_config.show_popup_button,
+                    "popup_width": $store.state.chart_config.popup_width,
+                    "popup_height": $store.state.chart_config.popup_height,
+                }' />
+            </div>
+            <div v-else-if="$store.state.current_page == 'IOST'" class="chart">
+                <VueTradingView :options='{
+                    "autosize": true,
+                    "symbol": "BITKUB:IOSTTHB",
+                    "interval": $store.state.chart_config.interval,
+                    "timezone": $store.state.chart_config.timezone,
+                    "theme": $store.state.chart_config.theme,
+                    "style": $store.state.chart_config.style,
+                    "locale": $store.state.chart_config.locale,
+                    "toolbar_bg": $store.state.chart_config.toolbar_bg,
+                    "enable_publishing": $store.state.chart_config.enable_publishing,
+                    "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
+                    "withdateranges": $store.state.chart_config.withdateranges,
+                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "show_popup_button": $store.state.chart_config.show_popup_button,
+                    "popup_width": $store.state.chart_config.popup_width,
+                    "popup_height": $store.state.chart_config.popup_height,
+                }' />
+            </div>
+            <div v-else-if="$store.state.current_page == 'ADA'" class="chart">
+                <VueTradingView :options='{
+                    "autosize": true,
+                    "symbol": "BITKUB:ADATHB",
+                    "interval": $store.state.chart_config.interval,
+                    "timezone": $store.state.chart_config.timezone,
+                    "theme": $store.state.chart_config.theme,
+                    "style": $store.state.chart_config.style,
+                    "locale": $store.state.chart_config.locale,
+                    "toolbar_bg": $store.state.chart_config.toolbar_bg,
+                    "enable_publishing": $store.state.chart_config.enable_publishing,
+                    "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
+                    "withdateranges": $store.state.chart_config.withdateranges,
+                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "show_popup_button": $store.state.chart_config.show_popup_button,
+                    "popup_width": $store.state.chart_config.popup_width,
+                    "popup_height": $store.state.chart_config.popup_height,
+                }' />
+            </div>
+            <div v-else-if="$store.state.current_page == 'SIX'" class="chart">
+                <VueTradingView :options='{
+                    "autosize": true,
+                    "symbol": "BITKUB:SIXTHB",
+                    "interval": $store.state.chart_config.interval,
+                    "timezone": $store.state.chart_config.timezone,
+                    "theme": $store.state.chart_config.theme,
+                    "style": $store.state.chart_config.style,
+                    "locale": $store.state.chart_config.locale,
+                    "toolbar_bg": $store.state.chart_config.toolbar_bg,
+                    "enable_publishing": $store.state.chart_config.enable_publishing,
+                    "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
+                    "withdateranges": $store.state.chart_config.withdateranges,
+                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "show_popup_button": $store.state.chart_config.show_popup_button,
+                    "popup_width": $store.state.chart_config.popup_width,
+                    "popup_height": $store.state.chart_config.popup_height,
+                }' />
+            </div>
+            <div v-else-if="$store.state.current_page == 'MANA'" class="chart">
+                <VueTradingView :options='{
+                    "autosize": true,
+                    "symbol": "BITKUB:MANATHB",
                     "interval": $store.state.chart_config.interval,
                     "timezone": $store.state.chart_config.timezone,
                     "theme": $store.state.chart_config.theme,

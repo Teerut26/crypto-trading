@@ -87,6 +87,46 @@
                   ({{numberWithCommas($store.state.crypto_data.USDT.change)}})</small>
               </div>
             </b-list-group-item>
+            <b-list-group-item class="bg-dark flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between" style="color: white;">
+                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/IOST.png" width="30" height="30"
+                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> IOST</h5>
+                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.IOST.last)}}</small>
+                <small style="color: white;"> <b
+                    :class="checkColor($store.state.crypto_data.IOST.percentChange)">{{numberPersen($store.state.crypto_data.IOST.percentChange)}}%</b>
+                  ({{numberWithCommas($store.state.crypto_data.IOST.change)}})</small>
+              </div>
+            </b-list-group-item>
+            <b-list-group-item class="bg-dark flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between" style="color: white;">
+                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/ADA.png" width="30" height="30"
+                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> ADA</h5>
+                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.ADA.last)}}</small>
+                <small style="color: white;"> <b
+                    :class="checkColor($store.state.crypto_data.ADA.percentChange)">{{numberPersen($store.state.crypto_data.ADA.percentChange)}}%</b>
+                  ({{numberWithCommas($store.state.crypto_data.ADA.change)}})</small>
+              </div>
+            </b-list-group-item>
+            <b-list-group-item class="bg-dark flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between" style="color: white;">
+                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/SIX.png" width="30" height="30"
+                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> SIX</h5>
+                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.SIX.last)}}</small>
+                <small style="color: white;"> <b
+                    :class="checkColor($store.state.crypto_data.SIX.percentChange)">{{numberPersen($store.state.crypto_data.SIX.percentChange)}}%</b>
+                  ({{numberWithCommas($store.state.crypto_data.SIX.change)}})</small>
+              </div>
+            </b-list-group-item>
+            <b-list-group-item class="bg-dark flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between" style="color: white;">
+                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/MANA.png" width="30" height="30"
+                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> MANA</h5>
+                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.MANA.last)}}</small>
+                <small style="color: white;"> <b
+                    :class="checkColor($store.state.crypto_data.MANA.percentChange)">{{numberPersen($store.state.crypto_data.MANA.percentChange)}}%</b>
+                  ({{numberWithCommas($store.state.crypto_data.MANA.change)}})</small>
+              </div>
+            </b-list-group-item>
           </b-list-group>
         </b-card>
       </b-col>
