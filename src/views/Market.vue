@@ -76,6 +76,6 @@
         height: 100%;
     }
     .card-body{
-        padding: 0px;
+        padding: 20px;
     }
 </style>
