@@ -10,7 +10,7 @@
                     <!-- <b-nav-item v-if="$store.state.show_navbar" href="#"><i class="fad fa-money-bill-wave"></i> เงินของฉัน</b-nav-item> -->
                     <!-- Navbar dropdowns -->
 
-                    <b-nav-item-dropdown v-if="$store.state.show_navbar"  text="เลือกเหรียญ" style="">
+                    <b-nav-item-dropdown v-if="$store.state.show_navbar" text="เลือกเหรียญ" style="">
                         <b-dropdown-item @click="clickPage('/market/BTC','BTC','thb_btc')"><img
                                 src="../assets/crpyto/BTC.png" width="20" height="20"> BTC
                         </b-dropdown-item>
@@ -35,7 +35,11 @@
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
-                        <b-button v-if="$store.state.show_navbar"  @click="logOut" size="sm" class="my-2 my-sm-0" type="submit">Logout</b-button>
+                        <b-button v-if="$store.state.show_navbar" size="sm" class="my-2 mr-2 my-sm-0"><i class="fad fa-user"></i> {{$store.state.username}}</b-button>
+                    </b-nav-form>
+                    <b-nav-form>
+                        <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm" class="my-2 my-sm-0"
+                            type="submit">Logout</b-button>
                     </b-nav-form>
                 </b-navbar-nav>
             </b-collapse>

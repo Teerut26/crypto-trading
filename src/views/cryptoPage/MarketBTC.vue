@@ -1,10 +1,10 @@
 <template>
   <div v-if="$store.state.showPage" class="home">
-    <b-row class="text-left">
-      <b-col sm class="ml-3 ">
+    <b-row class="px-2 text-left">
+      <b-col sm >
         <Chart />
       </b-col>
-      <b-col sm class="mr-3">
+      <b-col sm >
         <SellAndBuy />
       </b-col>
     </b-row>

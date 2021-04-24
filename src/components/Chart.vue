@@ -48,7 +48,7 @@
             </b-card-text>
             <div v-if="$store.state.current_page == 'BTC'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:BTCTHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -67,7 +67,7 @@
             </div>
             <div v-else-if="$store.state.current_page == 'ETH'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:ETHTHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -86,7 +86,7 @@
             </div>
             <div v-else-if="$store.state.current_page == 'XRP'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:XRPTHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -105,7 +105,7 @@
             </div>
             <div v-else-if="$store.state.current_page == 'BNB'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:BNBTHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -124,7 +124,7 @@
             </div>
             <div v-else-if="$store.state.current_page == 'DOGE'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:DOGETHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -143,7 +143,7 @@
             </div>
             <div v-else-if="$store.state.current_page == 'USDT'" class="chart">
                 <VueTradingView :options='{
-                    "height": 500,
+                    "autosize": true,
                     "symbol": "BITKUB:USDTTHB",
                     "interval": "15",
                     "timezone": "Asia/Bangkok",
@@ -204,3 +204,14 @@
         }
     }
 </script>
+<style>
+    .chart{
+        height: 500px;
+    }
+    #vue-trading-view{
+        height: 100%;
+    }
+    .card-body{
+        padding: px;
+    }
+</style>
