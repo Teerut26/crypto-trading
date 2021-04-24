@@ -1,6 +1,6 @@
 <template>
   <b-card v-if="$store.state.showPage" tag="article" class="mb-2 mr-3 ml-3 bg-dark" >
-            <div class="chart">
+            <div v-if="$store.state.renderComponent" class="chart">
                 <VueTradingView :options='{
                     "autosize": true,
                     "symbol": "BITKUB:BTCTHB",
@@ -13,7 +13,7 @@
                     "enable_publishing": $store.state.chart_config.enable_publishing,
                     "hide_side_toolbar": $store.state.chart_config.hide_side_toolbar,
                     "withdateranges": $store.state.chart_config.withdateranges,
-                    "allow_symbol_change": $store.state.chart_config.allow_symbol_change,
+                    "allow_symbol_change": true,
                     "show_popup_button": $store.state.chart_config.show_popup_button,
                     "popup_width": $store.state.chart_config.popup_width,
                     "popup_height": $store.state.chart_config.popup_height,
@@ -70,7 +70,7 @@
 </script>
 <style>
     .chart{
-        height: 500px;
+        height: 550px;
     }
     #vue-trading-view{
         height: 100%;
