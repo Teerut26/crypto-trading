@@ -35,7 +35,8 @@
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-form>
-                        <b-button v-if="$store.state.show_navbar" size="sm" class="my-2 mr-2 my-sm-0"><i class="fad fa-user"></i> {{$store.state.username}}</b-button>
+                        <b-button v-if="$store.state.show_navbar" size="sm" class="my-2 mr-2 my-sm-0"><i
+                                class="fad fa-user"></i> {{$store.state.username}}</b-button>
                     </b-nav-form>
                     <b-nav-form>
                         <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm" class="my-2 my-sm-0"
@@ -48,9 +49,11 @@
 </template>
 
 <script>
+    // import firebase from '../firebase.js'
     export default {
         data: () => ({
             connection: null,
+            data: {}
         }),
         methods: {
             clickPage(path, page, wssPath) {
@@ -75,12 +78,18 @@
             },
         },
         mounted() {
+
             if (localStorage.getItem("token") != null & localStorage.getItem("username") != null) {
                 this.$store.state.show_navbar = true
             }
+
+            // console.log('asdasdasdasd')
+            // firebase.database().ref('chart_config').on('value', (snapshot) => {
+            //     console.log(snapshot.value())
+            // })
+
         },
         created: function () {
-
             console.log("Starting connection to WebSocket Server")
 
             this.connection = new WebSocket(

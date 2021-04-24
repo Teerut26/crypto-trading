@@ -64,7 +64,8 @@
                 data_thb: {},
                 data_crypto: {},
                 buy_value: 0,
-                sell_value: 0
+                sell_value: 0,
+                data_chart:{}
             }
         },
         components: {
@@ -98,11 +99,13 @@
                             .current_page + '/order').push({
                             order_type: "buy",
                             spent: this.buy_value,
-                            spent_show: this.numberWithCommas(this.buy_value)+' THB',
+                            spent_show: this.numberWithCommas(this.buy_value) + ' THB',
                             price: current_price,
-                            price_show: this.numberWithCommas(current_price)+' THB/'+this.$store.state.current_page,
+                            price_show: this.numberWithCommas(current_price) + ' THB/' + this.$store.state
+                                .current_page,
                             you_received: this.buy_value / current_price,
-                            you_received_show: this.numberWithCommas(this.buy_value / current_price)+' '+this.$store.state.current_page,
+                            you_received_show: this.numberWithCommas(this.buy_value / current_price) + ' ' +
+                                this.$store.state.current_page,
                             symbol: this.$store.state.current_page,
                             timestamp: now.toJSON(),
                         });
@@ -162,11 +165,13 @@
                             .current_page + '/order').push({
                             order_type: "sell",
                             spent: this.sell_value,
-                            spent_show: this.numberWithCommas(this.sell_value)+' '+this.$store.state.current_page,
+                            spent_show: this.numberWithCommas(this.sell_value) + ' ' + this.$store.state
+                                .current_page,
                             price: current_price,
-                            price_show: this.numberWithCommas(current_price)+' THB/'+this.$store.state.current_page,
+                            price_show: this.numberWithCommas(current_price) + ' THB/' + this.$store.state
+                                .current_page,
                             you_received: this.sell_value * current_price,
-                            you_received_show: this.numberWithCommas(this.sell_value * current_price)+' THB',
+                            you_received_show: this.numberWithCommas(this.sell_value * current_price) + ' THB',
                             symbol: this.$store.state.current_page,
                             timestamp: now.toJSON(),
                         });
@@ -231,14 +236,15 @@
                     return this.sell_value * this.$store.state.crypto_data.USDT.last
                 }
             },
-            // check_money() {
-            //     if (this.buy_value == 0) {
-            //         return this.data_thb.value
-            //     }
-            //     if (this.buy_value > 0) {
-            //         return this.data_thb.value - this.buy_value
-            //     }
-            // }
+            forceRerender() {
+                // Remove my-component from the DOM
+                this.$store.state.renderComponent = false;
+
+                this.$nextTick(() => {
+                    // Add the component back in
+                    this.$store.state.renderComponent = true;
+                });
+            },
         },
         mounted() {
 
@@ -256,6 +262,12 @@
                 // console.log(snapshot.val())
                 // this.$store.state.current_asset = snapshot.val()
                 // this.data = 
+            })
+
+            firebase.database().ref('chart_config/').on('value', (
+                snapshot) => {
+                    this.$store.state.chart_config = snapshot.val()
+                    this.forceRerender()
             })
         },
 
