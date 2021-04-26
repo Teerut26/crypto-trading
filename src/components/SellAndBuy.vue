@@ -15,10 +15,10 @@
             </b-row>
             <hr>
             <b-form-group>
-                <vue-numeric  @keyup.enter="buy_crypto" class="form-control" placeholder="จำนวนทีต้องจ่าย THB" currency="THB" separator="," v-model="buy_value"></vue-numeric>
-                <!-- <b-form-input @keyup.enter="buy_crypto" v-model="buy_value" type="number"
+                <!-- <vue-numeric :precision="20" @keyup.enter="buy_crypto" class="form-control" placeholder="จำนวนทีต้องจ่าย THB" currency="THB" separator="," v-model="buy_value"></vue-numeric> -->
+                <b-form-input @keyup.enter="buy_crypto" v-model="buy_value" type="number"
                     placeholder="จำนวนทีต้องจ่าย THB" required>
-                </b-form-input> -->
+                </b-form-input>
             </b-form-group>
             <b-form-group>
                 <b-button @click="buy_crypto" block variant="success">ซื้อ {{$store.state.current_page}}</b-button>
@@ -40,9 +40,9 @@
             </b-row>
             <hr>
             <b-form-group>
-                <vue-numeric  @keyup.enter="sell_crypto" class="form-control" :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" :currency="$store.state.current_page" separator="," v-model="sell_value"></vue-numeric>
-                <!-- <b-form-input @keyup.enter="sell_crypto" v-model="sell_value" type="number"
-                    :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" required></b-form-input> -->
+                <!-- <vue-numeric :precision="20"  @keyup.enter="sell_crypto" class="form-control" :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" :currency="$store.state.current_page" separator="," v-model="sell_value"></vue-numeric> -->
+                <b-form-input @keyup.enter="sell_crypto" v-model="sell_value" type="number"
+                    :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" required></b-form-input>
             </b-form-group>
             <b-form-group>
                 <b-button block @click="sell_crypto" variant="danger">ขาย {{$store.state.current_page}}</b-button>

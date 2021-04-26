@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import firebase from './cryptoPage/firebase.js'
+  import firebase from '../firebase'
   const Swal = require('sweetalert2')
   // @ is an alias to /src
   import Chart from '@/components/Chart.vue'
