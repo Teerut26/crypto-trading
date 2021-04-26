@@ -16,13 +16,13 @@
     },
     data: () => ({
       connection: null,
-      show:false
+      show: false
     }),
     created() {
 
     },
     mounted() {
-  
+
     }
   }
 </script>
@@ -38,4 +38,24 @@
     background-color: #1A1E1E;
     color: white;
   }
+
+  div.ex4 {
+    width: 100%;
+    height: 500px;
+    overflow: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+  background: #CCCCCC; 
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
 </style>

@@ -4,15 +4,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueMeta from 'vue-meta'
-// import VueAnalytics from 'vue-analytics';
+import JsonExcel from "vue-json-excel";
+import VueNumeric from 'vue-numeric'
+
+
+Vue.component("downloadExcel", JsonExcel);
+Vue.component("vue-numeric", VueNumeric);
 
 Vue.config.productionTip = false
 
 Vue.use(VueMeta)
 
-// Vue.use(VueAnalytics, {
-//   id: 'UA-xxxxxxxxx-x'
-// });
 
 new Vue({
   router,

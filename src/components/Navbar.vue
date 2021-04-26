@@ -1,89 +1,98 @@
 <template>
-    <div class="mb-3">
+    <div class="mb-3 ">
         <b-navbar toggleable="lg" type="dark" variant="dark">
-                <b-navbar-brand @click="clickPage2('/')"><i class="fad fa-coins"></i> Visual Trading</b-navbar-brand>
-                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <b-navbar-brand  href="#" @click="clickPage2('/')"><i class="fad fa-coins"></i> Visual Trading
+            </b-navbar-brand>
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-                <b-collapse id="nav-collapse" is-nav>
-                    <b-navbar-nav>
-                        <!-- <b-nav-item v-if="$store.state.show_navbar" href="#"><i class="fad fa-money-bill-wave"></i> เงินของฉัน</b-nav-item> -->
-                        <!-- Navbar dropdowns -->
+            <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav>
+                    <!-- <b-nav-item v-if="$store.state.show_navbar" href="#"><i class="fad fa-money-bill-wave"></i> เงินของฉัน</b-nav-item> -->
+                    <!-- Navbar dropdowns -->
 
-                        <b-nav-item-dropdown v-if="$store.state.show_navbar" text="เลือกเหรียญ" style="">
-                            <b-dropdown-item @click="clickPage('/market/BTC','BTC','thb_btc')"><img
-                                    src="../assets/crpyto/BTC.png" width="20" height="20"> BTC
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/ETH','ETH','thb_eth')"><img
-                                    src="../assets/crpyto/ETH.png" width="20" height="20"> ETH
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/XRP','XRP','thb_xrp')"><img
-                                    src="../assets/crpyto/XRP.png" width="20" height="20"> XRP
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/BNB','BNB','thb_bnb')"><img
-                                    src="../assets/crpyto/BNB.png" width="20" height="20"> BNB
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/DOGE','DOGE','thb_doge')"><img
-                                    src="../assets/crpyto/DOGE.png" width="20" height="20"> DOGE
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/USDT','USDT','thb_usdt')"><img
-                                    src="../assets/crpyto/USDT.png" width="20" height="20"> USDT
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/IOST','IOST','thb_iost')"><img
-                                    src="https://www.bitkub.com/static/images/icons/IOST.png" width="20" height="20"> IOST
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/ADA','ADA','thb_ada')"><img
-                                    src="https://www.bitkub.com/static/images/icons/ADA.png" width="20" height="20"> ADA
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/SIX','SIX','thb_six')"><img
-                                    src="https://www.bitkub.com/static/images/icons/SIX.png" width="20" height="20"> SIX
-                            </b-dropdown-item>
-                            <b-dropdown-item @click="clickPage('/market/MANA','MANA','thb_mana')"><img
-                                    src="https://www.bitkub.com/static/images/icons/MANA.png" width="20" height="20"> MANA
-                            </b-dropdown-item>
-                        </b-nav-item-dropdown>
-                    </b-navbar-nav>
+                    <b-nav-item href="#" @click="clickPage2('/wallet')" v-if="$store.state.show_navbar">
+                       <i class="fad fa-wallet"></i> กระเป๋าตัง
+                    </b-nav-item>
 
-                    <!-- Right aligned nav items -->
-                    <b-navbar-nav class="ml-auto">
-                        <b-nav-form>
-                            <b-button v-if="$store.state.show_navbar" size="sm" class="my-2 mr-2 my-sm-0"><i
-                                    class="fad fa-user"></i> {{$store.state.username}}</b-button>
-                        </b-nav-form>
-                        <b-nav-form>
-                            <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm" class="my-2 my-sm-0"
-                                type="submit">Logout</b-button>
-                        </b-nav-form>
-                    </b-navbar-nav>
-                </b-collapse>
+                    <b-nav-item-dropdown v-if="$store.state.show_navbar" text="เลือกเหรียญ" style="">
+                        <div class="ex4">
+                            <b-dropdown-item v-for="item in key_crypto" :key="item"
+                                @click="clickPage('/market/'+item,item,'thb_'+item.toLowerCase())"><img
+                                    :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="20"
+                                    height="20">
+                                {{item}}
+                            </b-dropdown-item>
+                        </div>
+                    </b-nav-item-dropdown>
+
+                    
+                </b-navbar-nav>
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                    <b-nav-form>
+                        <b-button v-if="$store.state.show_navbar" size="sm" class="my-2 mr-2 my-sm-0"><i
+                                class="fad fa-user"></i> {{$store.state.username}}</b-button>
+                    </b-nav-form>
+                    <b-nav-form>
+                        <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm" class="btn-danger my-2 my-sm-0"
+                            type="submit">Logout</b-button>
+                    </b-nav-form>
+                </b-navbar-nav>
+            </b-collapse>
         </b-navbar>
     </div>
 </template>
 
 <script>
     // import firebase from '../firebase.js'
+    const axios = require('axios');
     export default {
         data: () => ({
             connection: null,
-            data: {}
+            data: {},
+            key_crypto: []
         }),
         methods: {
+            getFirst() {
+                var self = this;
+                axios.get('https://api.bitkub.com/api/market/ticker')
+                    .then(function (response) {
+                        for (var key in self.$store.state.crypto_data) {
+                            for (let key2 in response.data) {
+                                if (key2.match(key)) {
+                                    self.$store.state.crypto_data[key] = response.data[key2]
+                                }
+                            }
+
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            },
             clickPage(path, page, wssPath) {
                 this.$store.state.current_page = page
                 this.$store.state.current_wss_path = wssPath
                 this.$router.push(path)
-                this.forceRerender()
+                // this.forceRerender() error
+                this.forceRerender2()
             },
             clickPage2(path) {
                 this.$router.push(path)
             },
-            forceRerender() {
-                // Remove my-component from the DOM
-                this.$store.state.renderComponent = false;
+            // forceRerender() {
+            //     // Remove my-component from the DOM
+            //     this.$store.state.renderComponent = false;
 
-                this.$nextTick(() => {
-                    // Add the component back in
-                    this.$store.state.renderComponent = true;
-                });
+            //     this.$nextTick(() => {
+            //         // Add the component back in
+            //         this.$store.state.renderComponent = true;
+            //     });
+            // },
+            forceRerender2() {
+                this.$store.state.componentKey += 1;
             },
             logOut() {
                 localStorage.removeItem("username")
@@ -92,6 +101,10 @@
             },
         },
         mounted() {
+
+            for (var key in this.$store.state.crypto_data) {
+                this.key_crypto.push(key)
+            }
 
             if (localStorage.getItem("token") != null & localStorage.getItem("username") != null) {
                 this.$store.state.show_navbar = true
@@ -104,6 +117,7 @@
 
         },
         created: function () {
+            this.getFirst()
             console.log("Starting connection to WebSocket Server")
 
             this.connection = new WebSocket(
@@ -114,27 +128,11 @@
 
             this.connection.onmessage = function (event) {
                 let stream_wss = JSON.parse(event.data).data
-                // console.log(stream_wss)
-                if (stream_wss.stream == 'market.ticker.thb_btc') {
-                    self.$store.state.crypto_data.BTC = stream_wss
-                } else if (stream_wss.stream == 'market.ticker.thb_eth') {
-                    self.$store.state.crypto_data.ETH = stream_wss
-                } else if (stream_wss.stream == 'market.ticker.thb_xrp') {
-                    self.$store.state.crypto_data.XRP = stream_wss
-                } else if (stream_wss.stream == 'market.ticker.thb_bnb') {
-                    self.$store.state.crypto_data.BNB = stream_wss
-                } else if (stream_wss.stream == 'market.ticker.thb_doge') {
-                    self.$store.state.crypto_data.DOGE = stream_wss
-                } else if (stream_wss.stream == 'market.ticker.thb_usdt') {
-                    self.$store.state.crypto_data.USDT = stream_wss
-                }else if (stream_wss.stream == 'market.ticker.thb_iost') {
-                    self.$store.state.crypto_data.IOST = stream_wss
-                }else if (stream_wss.stream == 'market.ticker.thb_ada') {
-                    self.$store.state.crypto_data.ADA = stream_wss
-                }else if (stream_wss.stream == 'market.ticker.thb_six') {
-                    self.$store.state.crypto_data.SIX = stream_wss
-                }else if (stream_wss.stream == 'market.ticker.thb_mana') {
-                    self.$store.state.crypto_data.MANA = stream_wss
+                for (let index = 0; index < self.key_crypto.length; index++) {
+                    if (stream_wss.stream == 'market.ticker.thb_' + self.key_crypto[index].toLowerCase()) {
+                        self.$store.state.crypto_data[self.key_crypto[index]] = stream_wss
+                    }
+
                 }
             }
 

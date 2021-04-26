@@ -15,9 +15,10 @@
             </b-row>
             <hr>
             <b-form-group>
-                <b-form-input @keyup.enter="buy_crypto" v-model="buy_value" type="number"
+                <vue-numeric  @keyup.enter="buy_crypto" class="form-control" placeholder="จำนวนทีต้องจ่าย THB" currency="THB" separator="," v-model="buy_value"></vue-numeric>
+                <!-- <b-form-input @keyup.enter="buy_crypto" v-model="buy_value" type="number"
                     placeholder="จำนวนทีต้องจ่าย THB" required>
-                </b-form-input>
+                </b-form-input> -->
             </b-form-group>
             <b-form-group>
                 <b-button @click="buy_crypto" block variant="success">ซื้อ {{$store.state.current_page}}</b-button>
@@ -39,8 +40,9 @@
             </b-row>
             <hr>
             <b-form-group>
-                <b-form-input @keyup.enter="sell_crypto" v-model="sell_value" type="number"
-                    :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" required></b-form-input>
+                <vue-numeric  @keyup.enter="sell_crypto" class="form-control" :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" :currency="$store.state.current_page" separator="," v-model="sell_value"></vue-numeric>
+                <!-- <b-form-input @keyup.enter="sell_crypto" v-model="sell_value" type="number"
+                    :placeholder="'จำนวนทีต้องจ่าย '+$store.state.current_page" required></b-form-input> -->
             </b-form-group>
             <b-form-group>
                 <b-button block @click="sell_crypto" variant="danger">ขาย {{$store.state.current_page}}</b-button>
@@ -79,28 +81,7 @@
                 var now = new Date()
                 if (this.buy_value > 0) {
                     if (this.buy_value <= this.data_thb.value) {
-                        var current_price = 0
-                        if (this.$store.state.current_page == 'BTC') {
-                            current_price = this.$store.state.crypto_data.BTC.last
-                        } else if (this.$store.state.current_page == 'ETH') {
-                            current_price = this.$store.state.crypto_data.ETH.last
-                        } else if (this.$store.state.current_page == 'XRP') {
-                            current_price = this.$store.state.crypto_data.XRP.last
-                        } else if (this.$store.state.current_page == 'BNB') {
-                            current_price = this.$store.state.crypto_data.BNB.last
-                        } else if (this.$store.state.current_page == 'DOGE') {
-                            current_price = this.$store.state.crypto_data.DOGE.last
-                        } else if (this.$store.state.current_page == 'USDT') {
-                            current_price = this.$store.state.crypto_data.USDT.last
-                        } else if (this.$store.state.current_page == 'IOST') {
-                            current_price = this.$store.state.crypto_data.IOST.last
-                        } else if (this.$store.state.current_page == 'ADA') {
-                            current_price = this.$store.state.crypto_data.ADA.last
-                        } else if (this.$store.state.current_page == 'SIX') {
-                            current_price = this.$store.state.crypto_data.SIX.last
-                        } else if (this.$store.state.current_page == 'MANA') {
-                            current_price = this.$store.state.crypto_data.MANA.last
-                        }
+                        var current_price = this.$store.state.crypto_data[this.$store.state.current_page].last
 
                         firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store
                             .state
@@ -153,28 +134,7 @@
                 var now = new Date()
                 if (this.sell_value > 0) {
                     if (this.sell_value <= this.data_crypto.value) {
-                        var current_price = 0
-                        if (this.$store.state.current_page == 'BTC') {
-                            current_price = this.$store.state.crypto_data.BTC.last
-                        } else if (this.$store.state.current_page == 'ETH') {
-                            current_price = this.$store.state.crypto_data.ETH.last
-                        } else if (this.$store.state.current_page == 'XRP') {
-                            current_price = this.$store.state.crypto_data.XRP.last
-                        } else if (this.$store.state.current_page == 'BNB') {
-                            current_price = this.$store.state.crypto_data.BNB.last
-                        } else if (this.$store.state.current_page == 'DOGE') {
-                            current_price = this.$store.state.crypto_data.DOGE.last
-                        } else if (this.$store.state.current_page == 'USDT') {
-                            current_price = this.$store.state.crypto_data.USDT.last
-                        } else if (this.$store.state.current_page == 'IOST') {
-                            current_price = this.$store.state.crypto_data.IOST.last
-                        } else if (this.$store.state.current_page == 'ADA') {
-                            current_price = this.$store.state.crypto_data.ADA.last
-                        } else if (this.$store.state.current_page == 'SIX') {
-                            current_price = this.$store.state.crypto_data.SIX.last
-                        } else if (this.$store.state.current_page == 'MANA') {
-                            current_price = this.$store.state.crypto_data.MANA.last
-                        }
+                        var current_price = this.$store.state.crypto_data[this.$store.state.current_page].last
 
                         firebase.database().ref('users/' + localStorage.getItem("username") + '/asset/' + this.$store
                             .state
@@ -223,50 +183,11 @@
                 }
             },
             check_value_buy() {
-                if (this.$store.state.current_page == 'BTC') {
-                    return this.buy_value / this.$store.state.crypto_data.BTC.last
-                } else if (this.$store.state.current_page == 'ETH') {
-                    return this.buy_value / this.$store.state.crypto_data.ETH.last
-                } else if (this.$store.state.current_page == 'XRP') {
-                    return this.buy_value / this.$store.state.crypto_data.XRP.last
-                } else if (this.$store.state.current_page == 'BNB') {
-                    return this.buy_value / this.$store.state.crypto_data.BNB.last
-                } else if (this.$store.state.current_page == 'DOGE') {
-                    return this.buy_value / this.$store.state.crypto_data.DOGE.last
-                } else if (this.$store.state.current_page == 'USDT') {
-                    return this.buy_value / this.$store.state.crypto_data.USDT.last
-                } else if (this.$store.state.current_page == 'IOST') {
-                    return this.buy_value / this.$store.state.crypto_data.IOST.last
-                } else if (this.$store.state.current_page == 'ADA') {
-                    return this.buy_value / this.$store.state.crypto_data.ADA.last
-                } else if (this.$store.state.current_page == 'SIX') {
-                    return this.buy_value / this.$store.state.crypto_data.SIX.last
-                } else if (this.$store.state.current_page == 'MANA') {
-                    return this.buy_value / this.$store.state.crypto_data.MANA.last
-                }
+                return this.buy_value / this.$store.state.crypto_data[this.$store.state.current_page].last
             },
             check_value_sell() {
-                if (this.$store.state.current_page == 'BTC') {
-                    return this.sell_value * this.$store.state.crypto_data.BTC.last
-                } else if (this.$store.state.current_page == 'ETH') {
-                    return this.sell_value * this.$store.state.crypto_data.ETH.last
-                } else if (this.$store.state.current_page == 'XRP') {
-                    return this.sell_value * this.$store.state.crypto_data.XRP.last
-                } else if (this.$store.state.current_page == 'BNB') {
-                    return this.sell_value * this.$store.state.crypto_data.BNB.last
-                } else if (this.$store.state.current_page == 'DOGE') {
-                    return this.sell_value * this.$store.state.crypto_data.DOGE.last
-                } else if (this.$store.state.current_page == 'USDT') {
-                    return this.sell_value * this.$store.state.crypto_data.USDT.last
-                } else if (this.$store.state.current_page == 'IOST') {
-                    return this.sell_value * this.$store.state.crypto_data.IOST.last
-                } else if (this.$store.state.current_page == 'ADA') {
-                    return this.sell_value * this.$store.state.crypto_data.ADA.last
-                } else if (this.$store.state.current_page == 'SIX') {
-                    return this.sell_value * this.$store.state.crypto_data.SIX.last
-                } else if (this.$store.state.current_page == 'MANA') {
-                    return this.sell_value * this.$store.state.crypto_data.MANA.last
-                }
+                return this.sell_value * this.$store.state.crypto_data[this.$store.state.current_page].last
+                
             },
             forceRerender() {
                 // Remove my-component from the DOM

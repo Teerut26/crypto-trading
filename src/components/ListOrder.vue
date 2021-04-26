@@ -1,7 +1,28 @@
 <template>
     <div>
-        <b-card title="Open order" class="mt-3 bg-dark" style="color: white;">
-            <b-table striped bordered head-variant="dark" small :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fields" :items="data_order" responsive="sm">
+        <b-card  title="Open order" class="mt-3 bg-dark" style="color: white;">
+            <b-form-group>
+                <download-excel :name="this.$store.state.current_page+'.xls'" class="btn btn-outline-primary"
+                    :data="data_order">
+                    <i class="fad fa-download"></i> Export To Excel
+                </download-excel>
+
+                <download-excel type="csv" :name="this.$store.state.current_page+'.csv'"
+                    class=" ml-2 btn btn-outline-primary" :data="data_order">
+                    <i class="fad fa-download"></i> Export To CSV
+                </download-excel>
+            </b-form-group>
+
+            <b-form-group label="Search">
+                <b-input-group size="sm">
+                    <b-form-input id="filter-input" v-model="filter" type="search" placeholder="Type to Search">
+                    </b-form-input>
+                </b-input-group>
+            </b-form-group>
+
+            <b-table :current-page="currentPage" :per-page="perPage" :filter="filter" striped bordered
+                head-variant="dark" small :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fields"
+                :items="data_order" responsive="sm">
                 <template #cell(symbol)="data">
                     <b style="color: white;">{{ data.value}}</b>
                 </template>
@@ -21,6 +42,10 @@
                     <b style="color: white;">{{ timeCover(data.value) }}</b>
                 </template>
             </b-table>
+            <b-form-group>
+                <b-pagination variant="dark" v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
+                    align="fill" size="sm" class="my-0 "></b-pagination>
+            </b-form-group>
         </b-card>
     </div>
 
@@ -34,12 +59,15 @@
         name: 'HelloWorld',
         data() {
             return {
+                totalRows: 1,
+                currentPage: 1,
+                perPage: 5,
                 sortDesc: true,
                 sortBy: 'timestamp',
-                
+                filter: null,
                 fields: [{
                         key: 'symbol',
-                        label: 'Symbol' 
+                        label: 'Symbol'
                     },
                     {
                         key: 'order_type',
@@ -48,22 +76,22 @@
                     },
                     {
                         key: 'spent_show',
-                        label: 'Spent',
+                        label: 'ใช้ไป',
                         sortable: true
                     },
                     {
                         key: 'price_show',
-                        label: 'Price',
+                        label: 'ราคา',
                         sortable: true
                     },
                     {
                         key: 'you_received_show',
-                        label: 'You Received',
+                        label: 'ได้รับ',
                         sortable: true
                     },
                     {
                         key: 'timestamp',
-                        label: 'timestamp',
+                        label: 'เวลา',
                         sortable: true
                     },
                 ],
@@ -93,12 +121,23 @@
                     // console.log(data_order[key])
                     obj.push(data[key])
                 }
+                
                 this.data_order = obj
+                
+                this.totalRows = this.data_order.length
+
                 // console.log(JSON.stringify(obj))
                 // this.$store.state.current_asset = snapshot.val()
                 // this.data = 
             })
+
         },
 
     }
 </script>
+<style>
+    /* .form-control{
+    background-color: #343a40!important;
+    color: white;
+} */
+</style>

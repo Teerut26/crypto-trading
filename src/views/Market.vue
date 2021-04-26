@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$store.state.show_navbar" >
     <b-row class="px-2 text-left">
       <b-col sm>
         <b-card v-if="$store.state.showPage" tag="article" class="mb-2 bg-dark">
@@ -27,111 +27,23 @@
       <b-col sm>
         <b-card class="bg-dark">
           <b-list-group>
-            <b-list-group-item class="bg-dark  flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/BTC.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> BTC</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.BTC.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.BTC.percentChange)">{{numberPersen($store.state.crypto_data.BTC.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.BTC.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/ETH.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> ETH</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.ETH.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.ETH.percentChange)">{{numberPersen($store.state.crypto_data.ETH.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.ETH.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/XRP.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> XRP</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.XRP.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.XRP.percentChange)">{{numberPersen($store.state.crypto_data.XRP.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.XRP.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/BNB.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> BNB</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.BNB.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.BNB.percentChange)">{{numberPersen($store.state.crypto_data.BNB.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.BNB.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/DOGE.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> DOGE</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.DOGE.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.DOGE.percentChange)">{{numberPersen($store.state.crypto_data.DOGE.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.DOGE.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/USDT.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> USDT</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.USDT.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.USDT.percentChange)">{{numberPersen($store.state.crypto_data.USDT.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.USDT.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/IOST.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> IOST</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.IOST.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.IOST.percentChange)">{{numberPersen($store.state.crypto_data.IOST.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.IOST.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/ADA.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> ADA</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.ADA.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.ADA.percentChange)">{{numberPersen($store.state.crypto_data.ADA.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.ADA.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/SIX.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> SIX</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.SIX.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.SIX.percentChange)">{{numberPersen($store.state.crypto_data.SIX.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.SIX.change)}})</small>
-              </div>
-            </b-list-group-item>
-            <b-list-group-item class="bg-dark flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between" style="color: white;">
-                <h5 class="mb-1"><img src="https://www.bitkub.com/static/images/icons/MANA.png" width="30" height="30"
-                    alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> MANA</h5>
-                <small style="color: white;">{{numberWithCommas($store.state.crypto_data.MANA.last)}}</small>
-                <small style="color: white;"> <b
-                    :class="checkColor($store.state.crypto_data.MANA.percentChange)">{{numberPersen($store.state.crypto_data.MANA.percentChange)}}%</b>
-                  ({{numberWithCommas($store.state.crypto_data.MANA.change)}})</small>
-              </div>
-            </b-list-group-item>
+            <div class="ex4">
+              <b-list-group-item v-for="item in key_crypto" :key="item" class="bg-dark  flex-column align-items-start"
+                @click="clickPage('/market/'+item,item,'thb_'+item.toLowerCase())" href="#">
+                <div class="d-flex w-100 justify-content-between" style="color: white;">
+                  <h5 class="mb-1"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
+                      height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
+                  <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
+                  <small style="color: white;"> <b
+                      :class="checkColor($store.state.crypto_data[item].percentChange)">{{numberPersen($store.state.crypto_data[item].percentChange)}}%</b>
+                    ({{numberWithCommas($store.state.crypto_data[item].change)}})</small>
+                </div>
+              </b-list-group-item>
+            </div>
           </b-list-group>
         </b-card>
       </b-col>
     </b-row>
-
   </div>
 
 </template>
@@ -145,30 +57,17 @@
     name: 'HelloWorld',
     data() {
       return {
-        items: [{
-            age: 40,
-            first_name: 'Dickerson',
-            last_name: 'Macdonald'
-          },
-          {
-            age: 21,
-            first_name: 'Larsen',
-            last_name: 'Shaw'
-          },
-          {
-            age: 89,
-            first_name: 'Geneva',
-            last_name: 'Wilson'
-          },
-          {
-            age: 38,
-            first_name: 'Jami',
-            last_name: 'Carney'
-          }
-        ]
+        key_crypto: []
       }
     },
     methods: {
+      clickPage(path, page, wssPath) {
+        this.$store.state.current_page = page
+        this.$store.state.current_wss_path = wssPath
+        this.$router.push(path)
+        // this.forceRerender() error
+        this.forceRerender2()
+      },
       numberWithCommas(x) {
         var num2 = x.toFixed(2)
         return parseFloat(num2).toLocaleString()
@@ -196,6 +95,9 @@
     },
     mounted() {
       this.$store.state.titleBar = "Home"
+      for (var key in this.$store.state.crypto_data) {
+        this.key_crypto.push(key)
+      }
       firebase.database().ref('users/' + localStorage.getItem("username")).on('value', (snapshot) => {
         if (snapshot.val() != null) {
           if (localStorage.getItem("token") != null & localStorage.getItem("username") != null) {
@@ -213,6 +115,9 @@
                 title: 'Error!',
                 text: 'มีการ Login จากที่อื่น',
               }).then(() => {
+                localStorage.removeItem("username")
+                localStorage.removeItem("token")
+                this.$store.state.show_navbar = false
                 this.$router.push('/login')
               })
               // console.log(false)

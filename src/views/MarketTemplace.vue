@@ -1,14 +1,14 @@
 <template>
-  <div v-if="$store.state.showPage" class="home">
+  <div v-if="$store.state.show_navbar" class="home">
       <b-row class="px-2 text-left">
-        <b-col sm ><Chart /></b-col>
-        <b-col sm ><SellAndBuy /></b-col>
+        <b-col sm ><Chart  /></b-col>
+        <b-col sm ><SellAndBuy :key="$store.state.componentKey" /></b-col>
       </b-row>
   </div>
 </template>
 
 <script>
-  import firebase from './firebase.js'
+  import firebase from './cryptoPage/firebase.js'
   const Swal = require('sweetalert2')
   // @ is an alias to /src
   import Chart from '@/components/Chart.vue'
@@ -21,7 +21,7 @@
       SellAndBuy
     },
     created: function () {
-      this.$store.state.current_page = "ADA"
+      this.$store.state.current_page = this.$route.params.slug
     },
     mounted() {
       this.$store.state.titleBar = "Home"
@@ -42,6 +42,9 @@
                 title: 'Error!',
                 text: 'มีการ Login จากที่อื่น',
               }).then(() => {
+                localStorage.removeItem("username")
+                localStorage.removeItem("token")
+                this.$store.state.show_navbar = false
                 this.$router.push('/login')
               })
               // console.log(false)

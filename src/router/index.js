@@ -30,54 +30,14 @@ const routes = [
     component: () => import('../views/Market.vue')
   },
   {
-    path: '/market/BTC',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketBTC.vue')
+    path: '/wallet',
+    name: 'wallet',
+    component: () => import('../views/Wallet.vue')
   },
   {
-    path: '/market/ETH',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketETH.vue')
-  },
-  {
-    path: '/market/XRP',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketXRP.vue')
-  },
-  {
-    path: '/market/BNB',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketBNB.vue')
-  },
-  {
-    path: '/market/DOGE',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketDOGE.vue')
-  },
-  {
-    path: '/market/USDT',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketUSDT.vue')
-  },
-  {
-    path: '/market/IOST',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketIOST.vue')
-  },
-  {
-    path: '/market/ADA',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketADA.vue')
-  },
-  {
-    path: '/market/SIX',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketSIX.vue')
-  },
-  {
-    path: '/market/MANA',
-    name: 'MarketTrad',
-    component: () => import('../views/cryptoPage/MarketMANA.vue')
+    path: '/market/:slug',
+    name: 'MarketTemplace',
+    component: () => import('../views/MarketTemplace.vue')
   },
 ]
 
