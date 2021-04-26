@@ -4,14 +4,15 @@
             <h3><i class="fad fa-list"></i> Activity</h3>
             <b-list-group>
                 <div class="ex4">
-                    <b-list-group-item v-for="item in data_list" :key="item"
-                        class="bg-dark  flex-column align-items-start" href="#">
-                        <div class="d-flex w-100 justify-content-between" style="color: white;">
-                            <h5 class="mb-1">IP : {{item.IP}}</h5>
-                            <small style="color: white; ">{{timeCover(item.timeStamp)}}
-                                ({{updateClock(item.timeStamp)}})</small>
-                        </div>
-                    </b-list-group-item>
+                    <b-list-group-item href="#" v-for="item in data_list" :key="item" class="flex-column bg-dark align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">IP : {{item.IP}}</h5>
+                </div>
+
+                <p class="mb-1">
+                    {{timeCover(item.timeStamp)}} ({{updateClock(item.timeStamp)}})
+                </p>
+            </b-list-group-item>
                 </div>
             </b-list-group>
         </b-card>
@@ -57,11 +58,11 @@
 
                 if (d > 0) {
                     return d + " วันที่ผ่านมา"
-                } else if (d == 0 && h!=0 && m!=0 && s!=0) {
+                } else if (d == 0 && h != 0 && m != 0 && s != 0) {
                     return h + " ชั่วโมงผ่านมา"
-                }else if (h == 0 && m!=0 && s!=0) {
+                } else if (h == 0 && m != 0 && s != 0) {
                     return m + " นาทีผ่านมา"
-                }else if (m == 0 && s!=0) {
+                } else if (m == 0 && s != 0) {
                     return s + " วินาทีผ่านมา"
                 }
 
