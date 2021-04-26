@@ -35,6 +35,11 @@ const routes = [
     component: () => import('../views/Wallet.vue')
   },
   {
+    path: '/activity',
+    name: 'log',
+    component: () => import('../views/Log.vue')
+  },
+  {
     path: '/market/:slug',
     name: 'MarketTemplace',
     component: () => import('../views/MarketTemplace.vue')
@@ -47,5 +52,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router

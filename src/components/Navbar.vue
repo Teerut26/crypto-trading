@@ -1,5 +1,6 @@
 <template>
     <div class="mb-3 ">
+        <nprogress-container></nprogress-container>
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand  href="#" @click="clickPage2('/')"><i class="fad fa-coins"></i> Visual Trading
             </b-navbar-brand>
@@ -12,6 +13,10 @@
 
                     <b-nav-item href="#" @click="clickPage2('/wallet')" v-if="$store.state.show_navbar">
                        <i class="fad fa-wallet"></i> กระเป๋าตัง
+                    </b-nav-item>
+
+                    <b-nav-item href="#" @click="clickPage2('/activity')" v-if="$store.state.show_navbar">
+                       <i class="fad fa-list"></i> Activity
                     </b-nav-item>
 
                     <b-nav-item-dropdown v-if="$store.state.show_navbar" text="เลือกเหรียญ" style="">
@@ -47,7 +52,11 @@
 <script>
     // import firebase from '../firebase.js'
     const axios = require('axios');
+    import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
     export default {
+        components: {
+            NprogressContainer
+        },
         data: () => ({
             connection: null,
             data: {},
@@ -146,5 +155,21 @@
 </script>
 
 <style>
+/* #nprogress .bar {
+background: red !important;
+width: 10px;
+} */
+#nprogress .bar {
+  background: #FFBB00 !important;
+  height: 2px;
+}
 
+#nprogress .peg {
+  box-shadow: 0 0 30px #FFBB00, 0 0 30px #FFBB00;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #FFBB00;
+  border-left-color: #FFBB00;
+}
 </style>

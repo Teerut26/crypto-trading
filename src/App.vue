@@ -1,4 +1,5 @@
 <template>
+
   <div id="app">
     <Navbar />
     <router-view />
@@ -30,6 +31,10 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
+  .card{
+    border-radius: 3px
+  }
+
   * {
     font-family: 'Kanit', sans-serif;
   }
@@ -58,4 +63,5 @@
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.2);
 }
+
 </style>

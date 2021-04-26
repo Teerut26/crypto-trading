@@ -1,0 +1,13 @@
+{
+  "appId": "com.cryptotrading.app",
+  "appName": "crypto-trading",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

@@ -1,9 +1,11 @@
 <template>
   <div v-if="$store.state.show_navbar" class="home">
-      <b-row class="px-2 text-left">
+      <div class="content">
+        <b-row class=" text-left">
         <b-col sm ><Chart  /></b-col>
         <b-col sm ><SellAndBuy :key="$store.state.componentKey" /></b-col>
       </b-row>
+      </div>
   </div>
 </template>
 

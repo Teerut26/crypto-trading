@@ -1,6 +1,6 @@
 <template>
-  <div v-if="$store.state.show_navbar" >
-    <b-row class="px-2 text-left">
+  <div class="content" v-if="$store.state.show_navbar" >
+    <b-row class="text-left">
       <b-col sm>
         <b-card v-if="$store.state.showPage" tag="article" class="mb-2 bg-dark">
           <div v-if="$store.state.renderComponent" class="chart">
@@ -152,4 +152,14 @@
   .d-flex {
     height: 24px;
   }
+
+.content{
+  margin-left: 20px;
+  margin-right: 20px;;
+}
+.col-sm{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 </style>

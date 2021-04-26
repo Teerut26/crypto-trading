@@ -12,7 +12,8 @@
             <b-table sticky-header :current-page="currentPage" :filter="filter" striped bordered head-variant="dark"
                 :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fields" :items="data_list">
                 <template #cell(symbol)="data">
-                    <b href="#" style="color: white;">{{ data.value}}</b>
+                    <img :src="'https://www.bitkub.com/static/images/icons/'+data.value+'.png'" alt="">
+                    <b href="#" class="ml-3" style="color: white;">{{ data.value}}</b>
                 </template>
                 <template #cell(value_show)="data">
                     <b style="color: white;">{{ data.value }}</b>
@@ -28,7 +29,6 @@
                 <i class="text-primary fad fa-download"></i> Export To CSV
             </download-excel>
         </b-card>
-
     </div>
 
 </template>
