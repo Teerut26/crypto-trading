@@ -1,10 +1,10 @@
 <template>
-    <div class="container mt-3" v-if="$store.state.show_navbar">
+    <div class="container mt-3 white" v-if="$store.state.show_navbar">
         <b-card class="bg-dark">
             <h3><i class="fad fa-list"></i> Activity</h3>
             <b-list-group>
                 <div class="ex4">
-                    <b-list-group-item href="#" v-for="item in data_list" :key="item" class="flex-column bg-dark align-items-start">
+                    <b-list-group-item href="#" v-for="item in data_list" :key="item" class="white flex-column bg-dark align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">IP : {{item.IP}}</h5>
                 </div>
@@ -59,11 +59,11 @@
                 if (d > 0) {
                     return d + " วันที่ผ่านมา"
                 } else if (d == 0 && h != 0 && m != 0 && s != 0) {
-                    return h + " ชั่วโมงผ่านมา"
+                    return h + " ชั่วโมงที่ผ่านมา"
                 } else if (h == 0 && m != 0 && s != 0) {
-                    return m + " นาทีผ่านมา"
+                    return m + " นาทีที่ผ่านมา"
                 } else if (m == 0 && s != 0) {
-                    return s + " วินาทีผ่านมา"
+                    return s + " วินาทีที่ผ่านมา"
                 }
 
                 // return d + " day(s), " + h + " hour(s), " + m +
@@ -132,7 +132,7 @@
     }
 </script>
 <style>
-    * {
+    .white {
         color: white;
     }
 

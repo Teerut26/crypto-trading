@@ -1,17 +1,6 @@
 <template>
     <div>
         <b-card  title="Open order" class="mt-3 bg-dark" style="color: white;">
-            <b-form-group>
-                <download-excel :name="this.$store.state.current_page+'.xls'" class="btn btn-outline-primary"
-                    :data="data_order">
-                    <i class="fad fa-download"></i> Export To Excel
-                </download-excel>
-
-                <download-excel type="csv" :name="this.$store.state.current_page+'.csv'"
-                    class=" ml-2 btn btn-outline-primary" :data="data_order">
-                    <i class="fad fa-download"></i> Export To CSV
-                </download-excel>
-            </b-form-group>
 
             <b-form-group label="Search">
                 <b-input-group size="sm">
@@ -45,6 +34,17 @@
             <b-form-group>
                 <b-pagination variant="dark" v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
                     align="fill" size="sm" class="my-0 "></b-pagination>
+            </b-form-group>
+            <b-form-group>
+                <download-excel :name="this.$store.state.current_page+'.xls'" class="btn btn-outline-primary"
+                    :data="data_order">
+                    <i class="fad fa-download"></i> Export To Excel
+                </download-excel>
+
+                <download-excel type="csv" :name="this.$store.state.current_page+'.csv'"
+                    class=" ml-2 btn btn-outline-primary" :data="data_order">
+                    <i class="fad fa-download"></i> Export To CSV
+                </download-excel>
             </b-form-group>
         </b-card>
     </div>
