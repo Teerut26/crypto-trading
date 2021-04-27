@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card :key="$store.state.componentKey" tag="article" class="mb-2 bg-dark" style="color: white;">
+        <b-card v-if="$store.state.renderComponent" tag="article" class="mb-2 bg-dark" style="color: white;">
             <b-card-text>
                 <h3><img style="padding-bottom: 4px; padding-left: 4px;" :src="'https://www.bitkub.com/static/images/icons/'+$store.state.current_page+'.png'" width="30" height="30" alt="" srcset=""> <b>{{$store.state.current_page}}</b></h3>
                 <b-row>
