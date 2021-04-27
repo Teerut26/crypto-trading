@@ -5,13 +5,13 @@
                 <h3>เข้าสู่ระบบ</h3>
                 <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                     <b-form-group id="input-group-1" label-for="input-1">
-                        <b-form-input id="input-1" v-model="form.username" type="text" placeholder="Username"
-                            required>
+                        <b-form-input id="input-1" v-model="form.username" type="text" placeholder="Username" required>
                         </b-form-input>
                     </b-form-group>
 
                     <b-form-group id="input-group-2" label-for="input-2">
-                        <b-form-input id="input-2" type="password" v-model="form.password" placeholder="Password" required></b-form-input>
+                        <b-form-input id="input-2" type="password" v-model="form.password" placeholder="Password"
+                            required></b-form-input>
                     </b-form-group>
 
                     <!-- <b-form-group id="input-group-3" label="Food:" label-for="input-3">
@@ -26,7 +26,12 @@
                 </b-form-group> -->
 
                     <b-button type="submit" variant="primary">เข้าสู่ระบบ</b-button>
-                    <p class="mt-2">หากยังไม่มีบัญชี? <router-link to="/register">สมัครสมาชิกที่นี่</router-link></p>
+                    <p class="mt-2">หากยังไม่มีบัญชี? <router-link to="/register">สมัครสมาชิกที่นี่</router-link>
+                    </p>
+                    <hr>
+                    <p v-html="$store.state.config_web.login_footer"></p>
+                    <!-- {{$store.state.config_web.login_footer}} -->
+                    <!-- <p class="text-warning">*เว็บไซต์นี้จัดทำขึ้นเพื่อ เป็นการทดลองการลงทุนด้วย<u><b>เงินสมุมติ</b></u>ใน Crypto Currency <br>ผู้พัฒนาไม่ได้แสวงหากำไรและไม่ได้แสวงหาผลประโยชน์ใดๆทั้งสิ้น* <a href="http://m.me/100008786231232">ติดต่อ</a></p> -->
                 </b-form>
             </b-card>
         </center>
@@ -45,7 +50,7 @@
                     username: '',
                     password: '',
                 },
-                thisIP:'',
+                thisIP: '',
                 show: true
             }
         },
@@ -169,7 +174,14 @@
         },
         mounted() {
             this.getIP();
-            
+
+            // Swal.fire({
+            //     icon: 'warning',
+            //     title: 'โปรดอ่าน',
+            //     html: '<p>เว็บไซต์นี้จัดทำขึ้นเพื่อ เป็นการทดลองการลงทุนด้วย<br>เงินสมุมติใน Crypto Currency ผู้พัฒนาไม่ได้แสวงหาผลประโยชน์และไม่ได้แสวงหากำไรใดๆทั้งสิ้น</p>',
+            //     // text: 'เว็บไซต์นี้จัดทำขึ้นเพื่อ เป็นการทดลองการลงทุนด้วยเงินสมุมติใน Crypto Currency ผู้พัฒนาไม่ได้แสวงหาผลประโยชน์และไม่ได้แสวงหากำไรใดๆทั้งสิ้น',
+            // })
+
             // firebase.database().ref('users').on('value', ss => {
             //     console.log(ss.val())
             // })

@@ -8,7 +8,7 @@
 
 <script>
   import Navbar from '@/components/Navbar.vue'
-
+  import firebase from './firebase'
 
   export default {
     name: 'Home',
@@ -23,7 +23,11 @@
 
     },
     mounted() {
+      var self = this;
+      firebase.database().ref('config_web').on('value', (snapshot) => {
+        self.$store.state.config_web = snapshot.val()
 
+      })
     }
   }
 </script>
@@ -31,7 +35,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 
-  .card{
+  .card {
     border-radius: 3px
   }
 
@@ -55,13 +59,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-  background: #CCCCCC; 
-  opacity: 0.5;
-  border-radius: 10px;
-}
+    background: #CCCCCC;
+    opacity: 0.5;
+    border-radius: 10px;
+  }
 
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
 </style>

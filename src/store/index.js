@@ -21,6 +21,7 @@ export default new Vuex.Store({
       popup_height:"650",
     },
     current_page: "BTC",
+    config_web:{},
     wss_data_ticker: {},
     current_wss_path: "thb_btc",
     current_asset:{},
