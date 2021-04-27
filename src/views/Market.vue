@@ -1,5 +1,6 @@
 <template>
-  <div class="content" v-if="$store.state.show_navbar" >
+  <div class="content" v-if="$store.state.show_navbar">
+    <!-- <p style="color: white;">{{data}}</p> -->
     <b-row class="text-left">
       <b-col sm>
         <b-card v-if="$store.state.showPage" tag="article" class="mb-2 bg-dark">
@@ -28,15 +29,19 @@
         <b-card class="bg-dark">
           <b-list-group>
             <div class="ex4">
-              <b-list-group-item v-for="item in key_crypto" :key="item" class="bg-dark  flex-column align-items-start"
+              <b-list-group-item v-for="item in key_crypto" :key="item"
+                :class="checkChang(item,$store.state.crypto_data[item].baseVolume)+' bg-dark flex-column align-items-start'"
                 @click="clickPage('/market/'+item,item,'thb_'+item.toLowerCase())" href="#">
                 <div class="d-flex w-100 justify-content-between" style="color: white;">
                   <h5 class="mb-1"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
                       height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
                   <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
-                  <small style="color: white;"> <b
+                  <small style="color: white;">
+                    <!-- {{checkChang(item,$store.state.crypto_data[item].baseVolume)}} -->
+                    <b
                       :class="checkColor($store.state.crypto_data[item].percentChange)">{{numberPersen($store.state.crypto_data[item].percentChange)}}%</b>
-                    ({{numberWithCommas($store.state.crypto_data[item].change)}})</small>
+                    ({{numberWithCommas($store.state.crypto_data[item].change)}})
+                  </small>
                 </div>
               </b-list-group-item>
             </div>
@@ -51,16 +56,43 @@
 <script>
   import firebase from '../firebase.js'
   const Swal = require('sweetalert2')
+  const axios = require('axios');
   import VueTradingView from 'vue-trading-view';
 
   export default {
     name: 'HelloWorld',
     data() {
       return {
-        key_crypto: []
+        key_crypto: [],
+        data: {}
       }
     },
     methods: {
+      checkChang(symbol, baseVolume) {
+        var retrunData = Boolean
+        if (baseVolume != this.data['THB_' + symbol].baseVolume) {
+          retrunData = 'chang'
+          setTimeout(() => {
+            this.data['THB_' + symbol].baseVolume = baseVolume
+          }, 1000);
+        } else if (baseVolume == this.data['THB_' + symbol].baseVolume) {
+
+          retrunData = ''
+          // retrunData = baseVolume+' | '+this.data['THB_'+symbol].baseVolume
+        }
+        return retrunData
+      },
+      getFirst() {
+        var self = this;
+        axios.get('https://api.bitkub.com/api/market/ticker')
+          .then(function (response) {
+            self.data = response.data
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      },
       clickPage(path, page, wssPath) {
         this.$store.state.current_page = page
         this.$store.state.current_wss_path = wssPath
@@ -68,6 +100,11 @@
         // this.forceRerender() error
         this.forceRerender2()
       },
+      // checkChang(symbol,percentChange){
+      //   if (percentChange == data[symbol].percentChange) {
+
+      //   }
+      // },
       numberWithCommas(x) {
         var num2 = x.toFixed(2)
         return parseFloat(num2).toLocaleString()
@@ -92,6 +129,11 @@
     },
     components: {
       VueTradingView,
+    },
+    created() {
+      this.getFirst()
+      // console.log("🚀 ~ file: Market.vue ~ line 105 ~ created ~ this.$store.state.crypto_data", this.$store.state.crypto_data)
+
     },
     mounted() {
       this.$store.state.titleBar = "Home"
@@ -153,13 +195,81 @@
     height: 24px;
   }
 
-.content{
-  margin-left: 20px;
-  margin-right: 20px;;
-}
-.col-sm{
-  padding-left: 10px;
-  padding-right: 10px;
-}
+  .content {
+    margin-left: 20px;
+    margin-right: 20px;
+    ;
+  }
 
+  .col-sm {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadein {
+
+    /* Firefox */
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes fadein {
+
+    /* Safari and Chrome */
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes fadeout {
+
+    /* Safari and Chrome */
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+
+  @-o-keyframes fadein {
+
+    /* Opera */
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .chang {
+    background: linear-gradient(90deg, rgba(52,58,64,0) 0%, rgba(2,195,214,0.4458158263305322) 50%, rgba(52,58,64,0) 100%);
+    /* -moz-animation: fadein 2s; */
+    /* -webkit-animation: fadein 0.3s;  */
+    /* -webkit-animation: fadeout 0.2s;  */
+    /* -o-animation: fadein 2s;  */
+    
+  }
 </style>
