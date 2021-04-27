@@ -1,8 +1,8 @@
 <template>
-  <div  class="content" v-if="$store.state.show_navbar">
+  <div class="content" v-if="$store.state.show_navbar">
     <!-- <p style="color: white;">{{data}}</p> -->
     <b-row class="text-left">
-      <b-col sm>
+      <b-col cols="12" md="9">
         <b-card v-if="$store.state.showPage" tag="article" class="mb-2 bg-dark">
           <div v-if="$store.state.renderComponent" class="chart">
             <VueTradingView :options='{
@@ -25,20 +25,32 @@
           </div>
         </b-card>
       </b-col>
-      <b-col sm>
-        <b-card  class="bg-dark">
+      <b-col >
+        <b-card class="bg-dark">
           <b-list-group>
             <div class="ex4">
               <b-list-group-item v-for="item in key_crypto" :key="item"
                 :class="checkChang(item,$store.state.crypto_data[item].baseVolume)+' bg-dark flex-column align-items-start'"
                 @click="clickPage('/market/'+item,item,'thb_'+item.toLowerCase())" href="#">
                 <div class="d-flex w-100 justify-content-between" style="color: white;">
-                  <h5 class="mb-1"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
+                  <b-row>
+                    <b-col>
+                      <h5 class="mb-0"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
                       height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
-                  <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
-                  <small><b :class="checkColor($store.state.crypto_data[item].percentChange)" v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b>
-                  </small>
+                    </b-col>
+                  </b-row>
+                   <h5 style="float: right;" class="mb-0">{{numberWithCommas($store.state.crypto_data[item].last)}}</h5>
+
+                    
+                  <!-- <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
+                  <small><b :class="checkColor($store.state.crypto_data[item].percentChange)"
+                      v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b>
+                  </small> -->
                 </div>
+                <!-- <p style="color: white;" class="mb-1"></p> -->
+                <small style="color: white;">Vol : {{nFormatter($store.state.crypto_data[item].baseVolume,1)}}</small>
+                <small style="color: white; float: right;"><b :class="checkColor($store.state.crypto_data[item].percentChange)"
+                      v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b></small>
               </b-list-group-item>
             </div>
           </b-list-group>
@@ -64,6 +76,45 @@
       }
     },
     methods: {
+      nFormatter(num, digits) {
+        var si = [{
+            value: 1,
+            symbol: ""
+          },
+          {
+            value: 1E3,
+            symbol: "k"
+          },
+          {
+            value: 1E6,
+            symbol: "M"
+          },
+          {
+            value: 1E9,
+            symbol: "G"
+          },
+          {
+            value: 1E12,
+            symbol: "T"
+          },
+          {
+            value: 1E15,
+            symbol: "P"
+          },
+          {
+            value: 1E18,
+            symbol: "E"
+          }
+        ];
+        var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+        var i;
+        for (i = si.length - 1; i > 0; i--) {
+          if (num >= si[i].value) {
+            break;
+          }
+        }
+        return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+      },
       checkChang(symbol, baseVolume) {
         var retrunData = Boolean
         if (baseVolume != this.data['THB_' + symbol].baseVolume) {
@@ -111,7 +162,7 @@
           var num1 = x.toFixed(2)
           var num3 = parseFloat(num1).toLocaleString()
           var res = num3.replace("-", "");
-          return '<i class="fas fa-caret-down"></i> '+ res
+          return '<i class="fas fa-caret-down"></i> ' + res
         } else if (x > 0) {
           var num2 = x.toFixed(2)
           return '<i class="fas fa-caret-up"></i> ' + parseFloat(num2).toLocaleString()
@@ -189,9 +240,9 @@
     padding: 10px;
   }
 
-  .d-flex {
+  /* .d-flex {
     height: 24px;
-  }
+  } */
 
   .content {
     margin-left: 20px;
@@ -262,12 +313,33 @@
     }
   }
 
+/* @media (min-width: 900px){
+
+.col-md-9 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+} */
+
+@media ( max-width: 1000px){
+
+.col-md-9 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+}
+
   .chang {
-    background: linear-gradient(90deg, rgba(52,58,64,0) 0%, rgba(2,195,214,0.4458158263305322) 50%, rgba(52,58,64,0) 100%);
+    background: linear-gradient(90deg, rgba(0,224,107,0.38699229691876746) 0%, rgba(52,58,64,0) 100%);
+    /* border-color: rgb(2,214,103); */
+    /* border-width: 1px; */
+    /* border-radius: 10px; */
     /* -moz-animation: fadein 2s; */
     /* -webkit-animation: fadein 0.3s;  */
     /* -webkit-animation: fadeout 0.2s;  */
     /* -o-animation: fadein 2s;  */
-    
+
   }
 </style>
