@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-if="$store.state.show_navbar">
+  <div  class="content" v-if="$store.state.show_navbar">
     <!-- <p style="color: white;">{{data}}</p> -->
     <b-row class="text-left">
       <b-col sm>
@@ -26,7 +26,7 @@
         </b-card>
       </b-col>
       <b-col sm>
-        <b-card class="bg-dark">
+        <b-card  class="bg-dark">
           <b-list-group>
             <div class="ex4">
               <b-list-group-item v-for="item in key_crypto" :key="item"
@@ -36,11 +36,7 @@
                   <h5 class="mb-1"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
                       height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
                   <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
-                  <small style="color: white;">
-                    <!-- {{checkChang(item,$store.state.crypto_data[item].baseVolume)}} -->
-                    <b
-                      :class="checkColor($store.state.crypto_data[item].percentChange)">{{numberPersen($store.state.crypto_data[item].percentChange)}}%</b>
-                    ({{numberWithCommas($store.state.crypto_data[item].change)}})
+                  <small><b :class="checkColor($store.state.crypto_data[item].percentChange)" v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b>
                   </small>
                 </div>
               </b-list-group-item>
@@ -74,7 +70,7 @@
           retrunData = 'chang'
           setTimeout(() => {
             this.data['THB_' + symbol].baseVolume = baseVolume
-          }, 1000);
+          }, 300);
         } else if (baseVolume == this.data['THB_' + symbol].baseVolume) {
 
           retrunData = ''
@@ -113,10 +109,12 @@
         // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if (x < 0) {
           var num1 = x.toFixed(2)
-          return parseFloat(num1).toLocaleString()
+          var num3 = parseFloat(num1).toLocaleString()
+          var res = num3.replace("-", "");
+          return '<i class="fas fa-caret-down"></i> '+ res
         } else if (x > 0) {
           var num2 = x.toFixed(2)
-          return '+' + parseFloat(num2).toLocaleString()
+          return '<i class="fas fa-caret-up"></i> ' + parseFloat(num2).toLocaleString()
         }
       },
       checkColor(number) {

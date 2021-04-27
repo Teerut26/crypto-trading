@@ -90,6 +90,7 @@
             },
             clickPage2(path) {
                 this.$router.push(path)
+                this.forceRerender2()
             },
             // forceRerender() {
             //     // Remove my-component from the DOM

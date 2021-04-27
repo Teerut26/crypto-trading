@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-3" v-if="$store.state.show_navbar">
-        <b-card class="bg-dark">
+        <b-card class="white bg-dark">
             <b-form-group>
                 <h3><i class="fad fa-wallet"></i> กระเป๋าตัง</h3>
             </b-form-group>
@@ -210,7 +210,7 @@
     }
 </script>
 <style>
-    * {
+    .white {
         color: white;
     }
 
