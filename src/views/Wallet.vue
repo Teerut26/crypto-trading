@@ -98,7 +98,8 @@
             sumMoney() {
                 var sum = 0
                 for (let index = 0; index < this.data_list.length; index++) {
-                    sum = sum + this.marketPrice(this.data_list[index].symbol)
+                    sum = sum + this.marketPrice(this.data_list[index].symbol)*this.data_list[index].value
+                    
                 }
                 return sum
 
