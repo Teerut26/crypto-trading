@@ -11,6 +11,10 @@
                     <!-- <b-nav-item v-if="$store.state.show_navbar" href="#"><i class="fad fa-money-bill-wave"></i> เงินของฉัน</b-nav-item> -->
                     <!-- Navbar dropdowns -->
 
+                    <b-nav-item href="#" @click="clickPage2('/')" v-if="$store.state.show_navbar">
+                       <i class="fad fa-home"></i> หน้าแรก
+                    </b-nav-item>
+
                     <b-nav-item href="#" @click="clickPage2('/wallet')" v-if="$store.state.show_navbar">
                        <i class="fad fa-wallet"></i> กระเป๋าตัง
                     </b-nav-item>
