@@ -2,6 +2,7 @@
   <div class="content" v-if="$store.state.show_navbar">
     <!-- <p style="color: white;">{{data}}</p> -->
     <b-row class="text-left">
+      <!-- {{$store.state.crypto_data}} -->
       <b-col cols="12" md="9">
         <b-card v-if="$store.state.showPage" tag="article" class="mb-2 bg-dark">
           <div v-if="$store.state.renderComponent" class="chart">
@@ -41,13 +42,8 @@
                   </b-row>
                    <h5 style="float: right;" class="mb-0">{{numberWithCommas($store.state.crypto_data[item].last)}}</h5>
 
-                    
-                  <!-- <small style="color: white; ">{{numberWithCommas($store.state.crypto_data[item].last)}}</small>
-                  <small><b :class="checkColor($store.state.crypto_data[item].percentChange)"
-                      v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b>
-                  </small> -->
+        
                 </div>
-                <!-- <p style="color: white;" class="mb-1"></p> -->
                 <small style="color: white;">Vol : {{nFormatter($store.state.crypto_data[item].baseVolume,1)}}</small>
                 <small style="color: white; float: right;"><b :class="checkColor($store.state.crypto_data[item].percentChange)"
                       v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b></small>
@@ -131,9 +127,10 @@
       },
       getFirst() {
         var self = this;
-        axios.get('https://api.bitkub.com/api/market/ticker')
+        axios.get('https://www.bitkub.com/api/market/ticker')
           .then(function (response) {
-            self.data = response.data
+            self.data = response.data.data
+            // console.log("🚀 ~ file: Market.vue ~ line 137 ~ response.data", response.data)
 
           })
           .catch(function (error) {
@@ -180,6 +177,7 @@
       VueTradingView,
     },
     created() {
+      console.log('Start')
       this.getFirst()
       // console.log("🚀 ~ file: Market.vue ~ line 105 ~ created ~ this.$store.state.crypto_data", this.$store.state.crypto_data)
 

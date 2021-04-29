@@ -2,7 +2,7 @@
     <div class="mb-3 ">
         <nprogress-container></nprogress-container>
         <b-navbar toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand  href="#" @click="clickPage2('/')"><i class="fad fa-coins"></i> Visual Trading
+            <b-navbar-brand href="#" @click="clickPage2('/')"><i class="fad fa-coins"></i> Visual Trading
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -12,15 +12,15 @@
                     <!-- Navbar dropdowns -->
 
                     <b-nav-item href="#" @click="clickPage2('/')" v-if="$store.state.show_navbar">
-                       <i class="fad fa-home"></i> หน้าแรก
+                        <i class="fad fa-home"></i> หน้าแรก
                     </b-nav-item>
 
                     <b-nav-item href="#" @click="clickPage2('/wallet')" v-if="$store.state.show_navbar">
-                       <i class="fad fa-wallet"></i> กระเป๋าตัง
+                        <i class="fad fa-wallet"></i> กระเป๋าตัง
                     </b-nav-item>
 
                     <b-nav-item href="#" @click="clickPage2('/activity')" v-if="$store.state.show_navbar">
-                       <i class="fad fa-list"></i> Activity
+                        <i class="fad fa-list"></i> Activity
                     </b-nav-item>
 
                     <b-nav-item-dropdown v-if="$store.state.show_navbar" text="เลือกเหรียญ" style="">
@@ -34,7 +34,7 @@
                         </div>
                     </b-nav-item-dropdown>
 
-                    
+
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -44,8 +44,8 @@
                                 class="fad fa-user"></i> {{$store.state.username}}</b-button>
                     </b-nav-form>
                     <b-nav-form>
-                        <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm" class="btn-danger my-2 my-sm-0"
-                            type="submit">Logout</b-button>
+                        <b-button v-if="$store.state.show_navbar" @click="logOut" size="sm"
+                            class="btn-danger my-2 my-sm-0" type="submit">Logout</b-button>
                     </b-nav-form>
                 </b-navbar-nav>
             </b-collapse>
@@ -69,12 +69,18 @@
         methods: {
             getFirst() {
                 var self = this;
-                axios.get('https://api.bitkub.com/api/market/ticker')
+                console.log(true)
+                axios.get('https://www.bitkub.com/api/market/ticker')
                     .then(function (response) {
+                        // console.log("🚀 ~ file: Navbar.vue ~ line 75 ~ response", response.data.data)
                         for (var key in self.$store.state.crypto_data) {
-                            for (let key2 in response.data) {
+                            // console.log("🚀 ~ file: Navbar.vue ~ line 77 ~ key", key)
+                            for (let key2 in response.data.data) {
                                 if (key2.match(key)) {
-                                    self.$store.state.crypto_data[key] = response.data[key2]
+                                    // console.log("🚀 ~ file: Navbar.vue ~ line 79 ~ key2", key2)
+                                    self.$store.state.crypto_data[key] = response.data.data[key2]
+                                    // console.log("🚀 ~ file: Navbar.vue ~ line 82 ~ key", key)
+
                                 }
                             }
 
@@ -142,9 +148,15 @@
 
             this.connection.onmessage = function (event) {
                 let stream_wss = JSON.parse(event.data).data
+                // console.log("🚀 ~ file: Navbar.vue ~ line 151 ~ stream_wss", stream_wss)
+                // console.log("🚀 ~ file: Navbar.vue ~ line 151 ~ stream_wss", stream_wss)
+                
                 for (let index = 0; index < self.key_crypto.length; index++) {
                     if (stream_wss.stream == 'market.ticker.thb_' + self.key_crypto[index].toLowerCase()) {
                         self.$store.state.crypto_data[self.key_crypto[index]] = stream_wss
+                        // console.log(self.$store.state.crypto_data[self.key_crypto[index]])
+                        // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ self.$store.state.crypto_data[self.key_crypto[index]]", self.$store.state.crypto_data[self.key_crypto[index]])
+                        // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ stream_wss", stream_wss)
                     }
 
                 }
@@ -160,21 +172,21 @@
 </script>
 
 <style>
-/* #nprogress .bar {
+    /* #nprogress .bar {
 background: red !important;
 width: 10px;
 } */
-#nprogress .bar {
-  background: #FFBB00 !important;
-  height: 2px;
-}
+    #nprogress .bar {
+        background: #FFBB00 !important;
+        height: 2px;
+    }
 
-#nprogress .peg {
-  box-shadow: 0 0 30px #FFBB00, 0 0 30px #FFBB00;
-}
+    #nprogress .peg {
+        box-shadow: 0 0 30px #FFBB00, 0 0 30px #FFBB00;
+    }
 
-#nprogress .spinner-icon {
-  border-top-color: #FFBB00;
-  border-left-color: #FFBB00;
-}
+    #nprogress .spinner-icon {
+        border-top-color: #FFBB00;
+        border-left-color: #FFBB00;
+    }
 </style>
