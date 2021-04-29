@@ -57,6 +57,7 @@
     // import firebase from '../firebase.js'
     const axios = require('axios');
     import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
+    // import firebase from '../firebase.js'
     export default {
         components: {
             NprogressContainer
@@ -122,6 +123,12 @@
         },
         mounted() {
 
+            // firebase.database().ref('crypto_data/').on('value', (snapshot) => {
+            //     this.$store.state.crypto_data = snapshot.val()
+            //     this.forceRerender2()
+                
+            // })
+
             for (var key in this.$store.state.crypto_data) {
                 this.key_crypto.push(key)
             }
@@ -150,15 +157,19 @@
                 let stream_wss = JSON.parse(event.data).data
                 // console.log("🚀 ~ file: Navbar.vue ~ line 151 ~ stream_wss", stream_wss)
                 // console.log("🚀 ~ file: Navbar.vue ~ line 151 ~ stream_wss", stream_wss)
-                
-                for (let index = 0; index < self.key_crypto.length; index++) {
-                    if (stream_wss.stream == 'market.ticker.thb_' + self.key_crypto[index].toLowerCase()) {
-                        self.$store.state.crypto_data[self.key_crypto[index]] = stream_wss
-                        // console.log(self.$store.state.crypto_data[self.key_crypto[index]])
-                        // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ self.$store.state.crypto_data[self.key_crypto[index]]", self.$store.state.crypto_data[self.key_crypto[index]])
-                        // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ stream_wss", stream_wss)
-                    }
 
+                try {
+                    for (let index = 0; index < self.key_crypto.length; index++) {
+                        if (stream_wss.stream == 'market.ticker.thb_' + self.key_crypto[index].toLowerCase()) {
+                            self.$store.state.crypto_data[self.key_crypto[index]] = stream_wss
+                            // console.log(self.$store.state.crypto_data[self.key_crypto[index]])
+                            // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ self.$store.state.crypto_data[self.key_crypto[index]]", self.$store.state.crypto_data[self.key_crypto[index]])
+                            // console.log("🚀 ~ file: Navbar.vue ~ line 156 ~ stream_wss", stream_wss)
+                        }
+
+                    }
+                } catch (err) {
+                    console.log(err)
                 }
             }
 

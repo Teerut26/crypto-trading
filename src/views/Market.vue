@@ -26,7 +26,7 @@
           </div>
         </b-card>
       </b-col>
-      <b-col >
+      <b-col>
         <b-card class="bg-dark">
           <b-list-group>
             <div class="ex4">
@@ -37,16 +37,17 @@
                   <b-row>
                     <b-col>
                       <h5 class="mb-0"><img :src="'https://www.bitkub.com/static/images/icons/'+item+'.png'" width="30"
-                      height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
+                          height="30" alt="" srcset="" style="padding-bottom: 4px; padding-left: 4px;"> {{item}}</h5>
                     </b-col>
                   </b-row>
-                   <h5 style="float: right;" class="mb-0">{{numberWithCommas($store.state.crypto_data[item].last)}}</h5>
+                  <h5 style="float: right;" class="mb-0">{{numberWithCommas($store.state.crypto_data[item].last)}}</h5>
 
-        
+
                 </div>
                 <small style="color: white;">Vol : {{nFormatter($store.state.crypto_data[item].baseVolume,1)}}</small>
-                <small style="color: white; float: right;"><b :class="checkColor($store.state.crypto_data[item].percentChange)"
-                      v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b></small>
+                <small style="color: white; float: right;"><b
+                    :class="checkColor($store.state.crypto_data[item].percentChange)"
+                    v-html="numberPersen($store.state.crypto_data[item].percentChange,item)+'%'"></b></small>
               </b-list-group-item>
             </div>
           </b-list-group>
@@ -113,17 +114,21 @@
       },
       checkChang(symbol, baseVolume) {
         var retrunData = Boolean
-        if (baseVolume != this.data['THB_' + symbol].baseVolume) {
-          retrunData = 'chang'
-          setTimeout(() => {
-            this.data['THB_' + symbol].baseVolume = baseVolume
-          }, 300);
-        } else if (baseVolume == this.data['THB_' + symbol].baseVolume) {
+        try {
+          if (baseVolume != this.data['THB_' + symbol].baseVolume) {
+            retrunData = 'chang'
+            setTimeout(() => {
+              this.data['THB_' + symbol].baseVolume = baseVolume
+            }, 300);
+          } else if (baseVolume == this.data['THB_' + symbol].baseVolume) {
 
-          retrunData = ''
-          // retrunData = baseVolume+' | '+this.data['THB_'+symbol].baseVolume
+            retrunData = ''
+            // retrunData = baseVolume+' | '+this.data['THB_'+symbol].baseVolume
+          }
+          return retrunData
+        } catch (err) {
+          console.log(err)
         }
-        return retrunData
       },
       getFirst() {
         var self = this;
@@ -191,13 +196,17 @@
         if (snapshot.val() != null) {
           if (localStorage.getItem("token") != null & localStorage.getItem("username") != null) {
             if (localStorage.getItem("token") == snapshot.val().token) {
-              this.lists = snapshot.val().lists;
-              // console.log(true)
-              this.$store.state.email = snapshot.val().email;
-              this.$store.state.token = localStorage.getItem("token")
-              this.$store.state.username = localStorage.getItem("username")
-              this.$store.state.showPage = true
-              this.getLoginLog()
+              try {
+                this.lists = snapshot.val().lists;
+                // console.log(true)
+                this.$store.state.email = snapshot.val().email;
+                this.$store.state.token = localStorage.getItem("token")
+                this.$store.state.username = localStorage.getItem("username")
+                this.$store.state.showPage = true
+                this.getLoginLog()
+              } catch (error) {
+                console.log(error)
+              }
             } else {
               Swal.fire({
                 icon: 'error',
@@ -311,7 +320,7 @@
     }
   }
 
-/* @media (min-width: 900px){
+  /* @media (min-width: 900px){
 
 .col-md-9 {
     flex: 0 0 100%;
@@ -320,17 +329,17 @@
 
 } */
 
-@media ( max-width: 1000px){
+  @media (max-width: 1000px) {
 
-.col-md-9 {
-    flex: 0 0 100%;
-    max-width: 100%;
-}
+    .col-md-9 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
 
-}
+  }
 
   .chang {
-    background: linear-gradient(90deg, rgba(0,224,107,0.38699229691876746) 0%, rgba(52,58,64,0) 100%);
+    background: linear-gradient(90deg, rgba(0, 224, 107, 0.38699229691876746) 0%, rgba(52, 58, 64, 0) 100%);
     /* border-color: rgb(2,214,103); */
     /* border-width: 1px; */
     /* border-radius: 10px; */
