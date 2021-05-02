@@ -95,7 +95,7 @@
                     <b-row>
                         <b-col class="col-sm float-left">ยอดคงเหลือ {{$store.state.current_page}} : </b-col>
                         <b-col class="col-sm float-right">
-                            <nobr class="text-success">{{numberWithCommasC(data_crypto.value,8)}}</nobr>
+                            <nobr class="text-success">{{data_crypto.value}}</nobr>
                             {{$store.state.current_page}}
                         </b-col>
                     </b-row>
