@@ -6,12 +6,18 @@
             </b-form-group>
             <b-form-group>
                 <h5><img style="padding-bottom: 4px; padding-left: 4px;"
-                        src="https://www.bitkub.com/static/images/icons/THB.png" alt="" srcset=""> คงเหลือ
+                        src="https://www.bitkub.com/static/images/icons/THB.png" alt="" srcset=""> คงเหลือ : 
                     {{numberWithCommas2(thb)}} THB</h5>
             </b-form-group>
             <b-form-group>
                 <h5><img style="padding-bottom: 4px; padding-left: 4px;"
-                        src="https://www.bitkub.com/static/images/icons/THB.png" alt="" srcset=""> มูลค่าทั้งหมด {{numberWithCommasC(sumMoney(),0)}} THB</h5>
+                        src="https://www.bitkub.com/static/images/icons/THB.png" alt="" srcset=""> มูลค่าทั้งหมด : {{numberWithCommasC(sumMoney(),0)}} THB</h5>
+            </b-form-group>
+            <b-form-group>
+                <h5><img style="padding-bottom: 4px; padding-left: 4px;"
+                        src="https://www.bitkub.com/static/images/icons/THB.png" alt="" srcset=""> Unrealized P/L : <b :class="checkColor(pnlCheck())">{{pnlValue()}} ({{check_pl(pnlCheck())}}%)</b>
+                        
+                        </h5>
             </b-form-group>
             <b-form-group>
                 <b-input-group size="sm">
@@ -81,6 +87,17 @@
             }
         },
         methods: {
+            numberPersen(x) {
+                if (x < 0) {
+                    var num1 = x.toFixed(2)
+                    var num3 = parseFloat(num1).toLocaleString()
+                    var res = num3.replace("-", "");
+                    return '<i class="fas fa-caret-down"></i> ' + res
+                } else if (x > 0) {
+                    var num2 = x.toFixed(2)
+                    return '<i class="fas fa-caret-up"></i> ' + parseFloat(num2).toLocaleString()
+                }
+            },
             marketPrice(symbol) {
                 return this.$store.state.crypto_data[symbol].last
             },
@@ -103,6 +120,19 @@
                 }
                 return sum
 
+            },
+            pnlCheck(){
+                return this.numberWithCommasC((((this.sumMoney()+this.thb)-50000000)/50000000)*100,2)
+            },
+            pnlValue(){
+                return this.numberWithCommasC(((this.sumMoney()+this.thb)-50000000))
+            },
+            check_pl(number){
+                if(number > 0){
+                    return "+"+number
+                }else{
+                    return number
+                }
             },
             numberWithCommas8(x) {
                 var num2 = x.toFixed(8)
@@ -127,16 +157,6 @@
                 var parts = num2.toString().split(".");
                 parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 return parts.join(".");
-            },
-            numberPersen(x) {
-                // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                if (x < 0) {
-                    var num1 = x.toFixed(2)
-                    return parseFloat(num1).toLocaleString()
-                } else if (x > 0) {
-                    var num2 = x.toFixed(2)
-                    return '+' + parseFloat(num2).toLocaleString()
-                }
             },
             checkColor(number) {
                 if (number < 0) {
@@ -210,6 +230,11 @@
     }
 </script>
 <style>
+
+.text-success{
+    color: #22B000;
+}
+
     .white {
         color: white;
     }
