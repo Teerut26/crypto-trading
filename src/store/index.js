@@ -73,6 +73,7 @@ export default new Vuex.Store({
       AAVE: 0,
       ALPHA: 0,
       ENJ: 0,
+      CRV: 0,
     },
     titleBar:"Home",
     token:"",
