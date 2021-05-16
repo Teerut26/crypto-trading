@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -74,6 +75,8 @@ export default new Vuex.Store({
       ALPHA: 0,
       ENJ: 0,
       CRV: 0,
+      BAL: 0,
+      KUB: 0,
     },
     titleBar:"Home",
     token:"",
