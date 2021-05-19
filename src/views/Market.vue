@@ -289,9 +289,7 @@ export default {
 };
 </script>
 <style>
-.chart {
-  height: 550px;
-}
+
 
 #vue-trading-view {
   height: 100%;

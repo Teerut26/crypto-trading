@@ -74,10 +74,7 @@
         }
     }
 </script>
-<style>
-    .chart{
-        height: 500px;
-    }
+<style>    
     #vue-trading-view{
         height: 100%;
     }

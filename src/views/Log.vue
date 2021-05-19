@@ -3,7 +3,7 @@
         <b-card class="bg-dark">
             <h3><i class="fad fa-list"></i> Activity</h3>
             <b-list-group>
-                <div class="ex4">
+                <div style="height: calc(100vh - 173px);" class="ex4">
                     <b-list-group-item href="#" v-for="item in data_list" :key="item" class="white flex-column bg-dark align-items-start">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">IP : {{item.IP}}</h5>

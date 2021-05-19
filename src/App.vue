@@ -43,6 +43,10 @@
     font-family: 'Kanit', sans-serif;
   }
 
+  .chart{
+        height: calc(100vh - 134px);
+    }
+
   bg-dark {
     background-color: #1A1E1E;
     color: white;
@@ -50,7 +54,13 @@
 
   div.ex4 {
     width: 100%;
-    height: 550px;
+    height: calc(100vh - 140px);
+    overflow: auto;
+  }
+
+  div.ex5 {
+    width: 100%;
+    height: calc(100vh - 170px);
     overflow: auto;
   }
 
